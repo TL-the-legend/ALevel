@@ -3,8 +3,8 @@
 #include "ALevelGameMode.h"
 #include "ALevelCharacter.h"
 #include "UObject/ConstructorHelpers.h"
+#include "Engine/Engine.h"
 
-DECLARE_DYNAMIC_DELEGATE_OneParam(FSendSignal, bool, Pulse)
 
 AALevelGameMode::AALevelGameMode()
 {
