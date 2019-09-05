@@ -4,6 +4,8 @@
 #include "ALevelCharacter.h"
 #include "UObject/ConstructorHelpers.h"
 
+DECLARE_DYNAMIC_DELEGATE_OneParam(FSendSignal, bool, Pulse)
+
 AALevelGameMode::AALevelGameMode()
 {
 	// set default pawn class to our Blueprinted character

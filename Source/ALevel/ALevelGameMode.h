@@ -13,6 +13,9 @@ class AALevelGameMode : public AGameModeBase
 
 public:
 	AALevelGameMode();
+
+	UPROPERTY(BlueprintAssignable, Category = "Event Dispatchers")
+	FSendSignal SendTick;
 };
 
 
