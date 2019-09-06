@@ -2,6 +2,7 @@
 
 
 #include "TimerPulse.h"
+#include "Runtime/Engine/Public/TimerManager.h"
 
 // Sets default values for this component's properties
 UTimerPulse::UTimerPulse()
@@ -16,7 +17,9 @@ UTimerPulse::UTimerPulse()
 
 void UTimerPulse::TimerLoop()
 {
-	
+	UE_LOG(LogTemp, Warning, TEXT("pulse bop bop"));
+
+	TickPulse.Broadcast(true);
 }
 
 // Called when the game starts
@@ -25,6 +28,11 @@ void UTimerPulse::BeginPlay()
 	Super::BeginPlay();
 
 	// ...
+	
+	// UWorld
+	UWorld* World = GetWorld();
+	// Setting up the timer
+	World->GetWorld()->GetTimerManager().SetTimer(TimerPulseHandle, this, &UTimerPulse::TimerLoop, TimerDelayTime, true, 1.f);
 	
 }
 

@@ -19,6 +19,8 @@ class ALEVEL_API UTimerPulse : public UActorComponent
 public:	
 	// Sets default values for this component's properties
 	UTimerPulse();
+	
+
 
 	// Part of delegate
 	UPROPERTY(BlueprintAssignable)
@@ -26,6 +28,8 @@ public:
 
 	// Timer
 	void TimerLoop();
+	float TimerDelayTime = 1.f;
+	FTimerHandle TimerPulseHandle;
 
 protected:
 	// Called when the game starts
@@ -34,6 +38,5 @@ protected:
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
 		
 };
