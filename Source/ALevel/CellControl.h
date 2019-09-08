@@ -17,12 +17,21 @@ public:
 	// Sets default values for this component's properties
 	UCellControl();
 
-	// Part of delegate
-	void Receiver();
+
+
+	
 
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
+
+	// Cell Control
+	void CellDoSomething();
+
+	// Part of delegate
+	UFUNCTION()
+	void Receiver();
+	void SetPawn(APawn* InPawn);
 
 public:	
 	// Called every frame

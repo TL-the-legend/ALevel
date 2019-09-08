@@ -19,7 +19,7 @@ void UTimerPulse::TimerLoop()
 {
 	UE_LOG(LogTemp, Warning, TEXT("pulse bop bop"));
 
-	TickPulse.Broadcast(true);
+	TickPulse.Broadcast();
 }
 
 // Called when the game starts

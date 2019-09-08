@@ -2,6 +2,7 @@
 
 
 #include "CellControl.h"
+#include "TimerPulse.h"
 
 // Sets default values for this component's properties
 UCellControl::UCellControl()
@@ -16,7 +17,15 @@ UCellControl::UCellControl()
 // Receive from delegate event dispatcher
 void UCellControl::Receiver()
 {
+	AActor* test;
+	auto test = Cast<AActor>(test);
+	if (!ensure(test)) { return; }
+	test->TickPulse.AddDynamic(this, CellDoSomething());
+}
 
+void UCellControl::CellDoSomething()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Cell doing something"));
 }
 
 // Called when the game starts

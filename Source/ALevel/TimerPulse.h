@@ -9,7 +9,7 @@
 #include "TimerPulse.generated.h"
 
 // Part of delegate
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FSendPulse, bool, Pulse);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FSendPulse);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class ALEVEL_API UTimerPulse : public UActorComponent
