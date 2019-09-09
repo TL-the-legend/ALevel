@@ -17,10 +17,12 @@ UCellControl::UCellControl()
 // Receive from delegate event dispatcher
 void UCellControl::Receiver()
 {
+	/*
 	AActor* test;
 	auto test = Cast<AActor>(test);
 	if (!ensure(test)) { return; }
 	test->TickPulse.AddDynamic(this, CellDoSomething());
+	*/
 }
 
 void UCellControl::CellDoSomething()
