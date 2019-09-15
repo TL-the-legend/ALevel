@@ -17,9 +17,10 @@ public:
 	// Sets default values for this component's properties
 	UCellControl();
 
+	// Part of delegate
+	//UFUNCTION()
 
-
-	
+	void Recevier(AActor* test);
 
 protected:
 	// Called when the game starts
@@ -28,10 +29,7 @@ protected:
 	// Cell Control
 	void CellDoSomething();
 
-	// Part of delegate
-	UFUNCTION()
-	void Receiver();
-	void SetPawn(APawn* InPawn);
+	
 
 public:	
 	// Called every frame

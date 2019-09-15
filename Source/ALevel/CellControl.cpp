@@ -15,14 +15,12 @@ UCellControl::UCellControl()
 }
 
 // Receive from delegate event dispatcher
-void UCellControl::Receiver()
+void UCellControl::Recevier(AActor* test)
 {
-	/*
-	AActor* test;
+	Super::Recevier(test);
 	auto test = Cast<AActor>(test);
 	if (!ensure(test)) { return; }
-	test->TickPulse.AddDynamic(this, CellDoSomething());
-	*/
+	test->UTimerPulse::TickPulse.AddDynamic(this, CellDoSomething());
 }
 
 void UCellControl::CellDoSomething()
