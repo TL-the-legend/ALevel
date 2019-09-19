@@ -5,6 +5,7 @@
 #include "TimerPulse.h"
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "GameFramework/Actor.h"
 #include "CellControl.generated.h"
 
 
@@ -18,9 +19,10 @@ public:
 	UCellControl();
 
 	// Part of delegate
-	//UFUNCTION()
 
-	void Recevier(AActor* test);
+	virtual void PostInitializeComponents();
+	UFUNCTION()
+	void Recevier(int test[]);
 
 protected:
 	// Called when the game starts

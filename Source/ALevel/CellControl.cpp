@@ -4,6 +4,7 @@
 #include "CellControl.h"
 #include "TimerPulse.h"
 
+
 // Sets default values for this component's properties
 UCellControl::UCellControl()
 {
@@ -13,14 +14,13 @@ UCellControl::UCellControl()
 
 	// ...
 }
-
+	//Super::PostInitializeComponents();
 // Receive from delegate event dispatcher
-void UCellControl::Recevier(AActor* test)
+void UCellControl::Recevier(int test[])
 {
-	Super::Recevier(test);
-	auto test = Cast<AActor>(test);
-	if (!ensure(test)) { return; }
-	test->UTimerPulse::TickPulse.AddDynamic(this, CellDoSomething());
+	
+	UTimerPulse* Sender;
+	Sender->TickPulse.AddDynamic(this, UCellControl::CellDoSomething());
 }
 
 void UCellControl::CellDoSomething()
