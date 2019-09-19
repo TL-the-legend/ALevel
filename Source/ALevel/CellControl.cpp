@@ -16,11 +16,14 @@ UCellControl::UCellControl()
 }
 	//Super::PostInitializeComponents();
 // Receive from delegate event dispatcher
+
+
 void UCellControl::Recevier(int test)
 {
-	UTimerPulse* Sender;
+	APawn Sender = Null;
 	Sender->TickPulse.AddDynamic(this, UCellControl::CellDoSomething());
 }
+
 /*
 void UCellControl::CellDoSomething(int input_int)
 {
