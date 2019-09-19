@@ -22,14 +22,16 @@ public:
 
 	virtual void PostInitializeComponents();
 	UFUNCTION()
-	void Recevier(int test[]);
+	void Recevier(int test);
 
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
 	// Cell Control
+	UFUNCTION()
 	void CellDoSomething();
+	//void CellDoSomething(int input_int);
 
 	
 
