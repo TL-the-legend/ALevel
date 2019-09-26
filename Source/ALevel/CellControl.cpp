@@ -62,6 +62,7 @@ void UCellControl::Attatch_Commander()
 			if (localTimerPulse != nullptr) 
 			{
 				localTimerPulse->TickPulse.BindUObject(this, &UCellControl::CellDoSomething);
+				//localTimerPulse->TickPulse.BindRaw(this, &UCellControl::CellDoSomething);
 				UE_LOG(LogTemp, Warning, TEXT("We have binded bla"));
 			}
 	}
@@ -70,7 +71,7 @@ void UCellControl::Attatch_Commander()
 
 void UCellControl::CellDoSomething(FString string_a)
 {
-	UE_LOG(LogTemp, Warning, TEXT("%s"), *string_a);
+	UE_LOG(LogTemp, Warning, TEXT("Cell '%s' is doing something"), *GetOwner()->GetName());
 }
 
 // Called when the game starts

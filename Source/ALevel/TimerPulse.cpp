@@ -14,31 +14,40 @@ UTimerPulse::UTimerPulse()
 	// ...
 }
 
-
+/*
 void UTimerPulse::TimerLoop()
 {
 	UE_LOG(LogTemp, Warning, TEXT("pulse bop bop"));
 	//TArray<int> test = {1,2,3,4,5};
 	FString test = TEXT("asdsdasd");
-	TickPulse.ExecuteIfBound(test);
+	if (TickPulse.IsBound()) {
+		UE_LOG(LogTemp, Warning, TEXT("bounded"));
+		//TickPulse.ExecuteIfBound(test);
+		TickPulse.Execute(test);
+	}
+	else {
+		UE_LOG(LogTemp, Warning, TEXT("not bound"));
+	}
+	
 	//TickPulse.Broadcast();
 }
 
+*/
 // Called when the game starts
 void UTimerPulse::BeginPlay()
 {
 	Super::BeginPlay();
 
 	// ...
-	
+	/*
 	// UWorld
 	UWorld* World = GetWorld();
 	// Setting up the timer
 	World->GetWorld()->GetTimerManager().SetTimer(TimerPulseHandle, this, &UTimerPulse::TimerLoop, TimerDelayTime, true, 1.f);
-	
+	*/
 }
 
-
+/*
 // Called every frame
 void UTimerPulse::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
@@ -46,4 +55,43 @@ void UTimerPulse::TickComponent(float DeltaTime, ELevelTick TickType, FActorComp
 
 	// ...
 }
+*/
+// Called every frame
+void UTimerPulse::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+{
 
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+	//In begin play, comment out the line "World->GetWorld()->GetTimerManager().SetTimer(TimerPulseHandle, this, &UTimerPulse::TimerLoop, TimerDelayTime, true, 1.f);"
+	//Make TimerDelayTime a UPROPERTY(EditAnywhere)
+
+	//Set up a float in the .h - call it timer. initialise to 0.f;
+
+	timer += DeltaTime;
+
+	if (timer >= TimerDelayTime)
+	{
+		float timerLeftOvers = timer - TimerDelayTime;
+		FString test = TEXT("asdsdasd");
+		/*
+		if (TickPulse.IsBound()) {
+			UE_LOG(LogTemp, Warning, TEXT("bounded"));
+			TickPulse.ExecuteIfBound(test);
+			//TickPulse.Execute(test);
+		}
+		else {
+			UE_LOG(LogTemp, Warning, TEXT("not bound"));
+		}
+		*/
+		if (TickPulse.ExecuteIfBound(test)) 
+		{
+			UE_LOG(LogTemp, Warning, TEXT("bounded"));
+		}
+		else 
+		{
+			UE_LOG(LogTemp, Warning, TEXT("not bounded"));
+		}
+		//TickPulse.ExecuteIfBound(test);
+		timer = timerLeftOvers;
+	}
+}

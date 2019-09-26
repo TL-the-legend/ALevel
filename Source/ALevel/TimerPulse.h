@@ -31,6 +31,7 @@ public:
 	void TimerLoop();
 	float TimerDelayTime = 1.f;
 	FTimerHandle TimerPulseHandle;
+	float timer = 0.f;
 
 protected:
 	// Called when the game starts
