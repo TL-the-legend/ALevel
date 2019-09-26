@@ -18,9 +18,10 @@ UTimerPulse::UTimerPulse()
 void UTimerPulse::TimerLoop()
 {
 	UE_LOG(LogTemp, Warning, TEXT("pulse bop bop"));
-	int test = 12345;
-	//TickPulse.Broadcast(test);
-	TickPulse.Broadcast();
+	//TArray<int> test = {1,2,3,4,5};
+	FString test = TEXT("asdsdasd");
+	TickPulse.ExecuteIfBound(test);
+	//TickPulse.Broadcast();
 }
 
 // Called when the game starts

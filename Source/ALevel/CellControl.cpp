@@ -3,6 +3,7 @@
 
 #include "CellControl.h"
 #include "TimerPulse.h"
+#include "Kismet/GameplayStatics.h"
 
 
 // Sets default values for this component's properties
@@ -18,21 +19,58 @@ UCellControl::UCellControl()
 // Receive from delegate event dispatcher
 
 
-void UCellControl::Recevier(int test)
+void UCellControl::Recevier(TArray<int> test)
 {
-	APawn Sender = Null;
-	Sender->TickPulse.AddDynamic(this, UCellControl::CellDoSomething());
+	//AActor Sender = Null;
+	//ACharacter* Sender = UGameplayStatics::GetPlayerChracter(GetWorld(), 0);
+	//AActor* Sender =
+	//Sender->TickPulse.AddDynamic(this, UCellControl::CellDoSomething(test));
+}
+
+void UCellControl::FindSender()
+{
+	// Getting the adress of the sender
+	for (TActorIterator<AActor> ActorItr(GetWorld()); ActorItr; ++ActorItr)
+	{
+		// Same as with the Object Iterator, access the subclass instance with the * or -> operators.
+
+		AActor* ActorI = *ActorItr;
+		UE_LOG(LogTemp, Warning, TEXT("Actor: %s"), *ActorI->GetFName().ToString())
+			if (ActorI->GetFName().ToString().Contains(TEXT("Commander"))) 
+			{
+				Sender = ActorI;
+				Attatch_Commander();
+				break;
+			}
+			//ClientMessage(ActorItr->GetActorLocation().ToString());
+	}
 }
 
 /*
-void UCellControl::CellDoSomething(int input_int)
-{
-	UE_LOG(LogTemp, Warning, TEXT("Cell doing something %s"));
-}
-*/
-void UCellControl::CellDoSomething()
+void UCellControl::CellDoSomething(TArray<int> input_int)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Cell doing something"));
+}
+*/
+
+void UCellControl::Attatch_Commander()
+{
+	if (Sender != nullptr) 
+	{
+		UTimerPulse* localTimerPulse = Sender->FindComponentByClass<UTimerPulse>();
+		//UTimerPulse* localTimerPulse = Sender->FindComponentByClass(TSubclassOf<UTimerPulse>)(ComponentClass)
+			if (localTimerPulse != nullptr) 
+			{
+				localTimerPulse->TickPulse.BindUObject(this, &UCellControl::CellDoSomething);
+				UE_LOG(LogTemp, Warning, TEXT("We have binded bla"));
+			}
+	}
+}
+
+
+void UCellControl::CellDoSomething(FString string_a)
+{
+	UE_LOG(LogTemp, Warning, TEXT("%s"), *string_a);
 }
 
 // Called when the game starts
@@ -40,7 +78,7 @@ void UCellControl::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ...
+	FindSender();
 	
 }
 

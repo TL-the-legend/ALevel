@@ -6,6 +6,8 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "GameFramework/Actor.h"
+#include "Kismet/GameplayStatics.h"
+#include "EngineUtils.h"
 #include "CellControl.generated.h"
 
 
@@ -20,9 +22,13 @@ public:
 
 	// Part of delegate
 
-	virtual void PostInitializeComponents();
+	//virtual void PostInitializeComponents();
 	UFUNCTION()
-	void Recevier(int test);
+	void Recevier(TArray<int> test);
+
+	AActor* Sender;
+
+	void FindSender();
 
 protected:
 	// Called when the game starts
@@ -30,10 +36,11 @@ protected:
 
 	// Cell Control
 	UFUNCTION()
-	void CellDoSomething();
-	//void CellDoSomething(int input_int);
+	//void CellDoSomething();
+	void CellDoSomething(FString string_a);
 
-	
+	void Attatch_Commander();
+
 
 public:	
 	// Called every frame
