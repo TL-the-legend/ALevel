@@ -9,9 +9,9 @@
 #include "TimerPulse.generated.h"
 
 // Part of delegate
-//DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FSendPulse, TArray<int>, map);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FSendPulse, FString, map);
 //DECLARE_DYNAMIC_MULTICAST_DELEGATE(FSendPulse);
-DECLARE_DELEGATE_OneParam(FSendPulse, FString);
+//DECLARE_DELEGATE_OneParam(FSendPulse, FString);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class ALEVEL_API UTimerPulse : public UActorComponent
@@ -28,7 +28,8 @@ public:
 	FSendPulse TickPulse;
 
 	// Timer
-	void TimerLoop();
+	//void TimerLoop();
+	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	float TimerDelayTime = 1.f;
 	FTimerHandle TimerPulseHandle;
 	float timer = 0.f;

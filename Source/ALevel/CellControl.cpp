@@ -55,6 +55,8 @@ void UCellControl::CellDoSomething(TArray<int> input_int)
 
 void UCellControl::Attatch_Commander()
 {
+	// Single dynamic delegate (turns out doesnt work with multiple cells)
+	/*
 	if (Sender != nullptr) 
 	{
 		UTimerPulse* localTimerPulse = Sender->FindComponentByClass<UTimerPulse>();
@@ -66,12 +68,25 @@ void UCellControl::Attatch_Commander()
 				UE_LOG(LogTemp, Warning, TEXT("We have binded bla"));
 			}
 	}
+	*/
+
+	if (Sender != nullptr)
+	{
+		UTimerPulse* localTimerPulse = Sender->FindComponentByClass<UTimerPulse>();
+		//UTimerPulse* localTimerPulse = Sender->FindComponentByClass(TSubclassOf<UTimerPulse>)(ComponentClass)
+		if (localTimerPulse != nullptr)
+		{
+			localTimerPulse->TickPulse.AddDynamic(this, &UCellControl::CellDoSomething);
+			//localTimerPulse->TickPulse.BindRaw(this, &UCellControl::CellDoSomething);
+			UE_LOG(LogTemp, Warning, TEXT("We have binded bla"));
+		}
+	}
 }
 
 
 void UCellControl::CellDoSomething(FString string_a)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Cell '%s' is doing something"), *GetOwner()->GetName());
+	UE_LOG(LogTemp, Warning, TEXT("Cell '%s' is doing something and printing string '%s'"), *GetOwner()->GetName(), *string_a);
 }
 
 // Called when the game starts

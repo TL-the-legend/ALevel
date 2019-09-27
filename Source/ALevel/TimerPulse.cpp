@@ -73,6 +73,8 @@ void UTimerPulse::TickComponent(float DeltaTime, ELevelTick TickType, FActorComp
 	{
 		float timerLeftOvers = timer - TimerDelayTime;
 		FString test = TEXT("asdsdasd");
+		
+		// Dynamic Delegate
 		/*
 		if (TickPulse.IsBound()) {
 			UE_LOG(LogTemp, Warning, TEXT("bounded"));
@@ -83,6 +85,7 @@ void UTimerPulse::TickComponent(float DeltaTime, ELevelTick TickType, FActorComp
 			UE_LOG(LogTemp, Warning, TEXT("not bound"));
 		}
 		*/
+		/*
 		if (TickPulse.ExecuteIfBound(test)) 
 		{
 			UE_LOG(LogTemp, Warning, TEXT("bounded"));
@@ -91,6 +94,10 @@ void UTimerPulse::TickComponent(float DeltaTime, ELevelTick TickType, FActorComp
 		{
 			UE_LOG(LogTemp, Warning, TEXT("not bounded"));
 		}
+		*/
+
+		// MultiCast Dynamic
+		TickPulse.Broadcast(test);
 		//TickPulse.ExecuteIfBound(test);
 		timer = timerLeftOvers;
 	}
