@@ -29,7 +29,7 @@ public:
 
 	// Timer
 	//void TimerLoop();
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget), Category = "Timer_Variables")
+	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	float TimerDelayTime = 1.f;
 	FTimerHandle TimerPulseHandle;
 	float timer = 0.f;
