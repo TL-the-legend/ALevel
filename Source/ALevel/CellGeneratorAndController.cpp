@@ -30,24 +30,20 @@ void ACellGeneratorAndController::GenerateCells()
 	}
 	*/
 	/**/
-	UE_LOG(LogTemp, Warning, TEXT("Function called"));
+	//// Spawn actors and put their address into a 2D array
 	UWorld* World = GetWorld();
-	for (uint32 i = 0; i < height; i++) {
+	for (uint8 i = 0; i < height; i++) {
 		FCellRow thisRow;
 		CellCollections.Add(thisRow);
-		UE_LOG(LogTemp, Warning, TEXT("Step1"));
 		UE_LOG(LogTemp, Warning, TEXT("heightloop = %u"), i);
-		for (uint32 j = 0; j < width; j++) {
-			
+		for (uint8 j = 0; j < width; j++) {	
 			ACell* myNewCell = nullptr;
-			UE_LOG(LogTemp, Warning, TEXT("Step2"));
 			if (World) {
 				FActorSpawnParameters SpawnParams;
 				SpawnParams.Owner = this;
-				FVector Location = { (float)i * 100.f, (float)j * 100.f, 0.f };
+				FVector Location = { (float)i * 110.f, (float)j * 110.f, 0.f };
 				FRotator Rotation = FRotator();
 				myNewCell = World->SpawnActor<ACell>(ClassToSpawn, Location, Rotation, SpawnParams);
-				//myNewCell = World->SpawnActor<ACell>(GetClass(), Location, Rotation, SpawnParams);
 				UE_LOG(LogTemp, Warning, TEXT("Spawned"));
 				CellCollections[i].CellAdrs.Add(myNewCell);
 			}
@@ -59,17 +55,28 @@ void ACellGeneratorAndController::GenerateCells()
 	
 }
 
+void ACellGeneratorAndController::ObserveCells()
+{
+
+}
+
 // Called when the game starts or when spawned
 void ACellGeneratorAndController::BeginPlay()
 {
 	Super::BeginPlay();
-	/*
-	static ConstructorHelpers::FObjectFinder<UBlueprint> ClassToSpawn(TEXT("Blueprint'/Game/World/Cell_BP.Cell_BP'"));
-	if (ClassToSpawn.Object) {
-		ClassToSpawn = (UClass*)ClassToSpawn.Object->GeneratedClass;
-	}
-	*/
+
 	GenerateCells();
+	//UEnum State = CellCollections[0].CellAdrs[0]->ReturnState();
+	ECellState State = CellCollections[0].CellAdrs[0]->ReturnState();
+	
+	if (State == ECellState::Alive) 
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Alive"));
+	}
+	else 
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Dead"));
+	}
 }
 
 // Called every frame

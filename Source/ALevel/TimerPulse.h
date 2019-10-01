@@ -8,7 +8,7 @@
 #include "Runtime/Engine/Public/TimerManager.h"
 #include "TimerPulse.generated.h"
 
-// Part of delegate
+//// Part of delegate
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FSendPulse, FString, map);
 //DECLARE_DYNAMIC_MULTICAST_DELEGATE(FSendPulse);
 //DECLARE_DELEGATE_OneParam(FSendPulse, FString);
@@ -24,10 +24,10 @@ public:
 	
 
 
-	// Part of delegate
+	//// Part of delegate
 	FSendPulse TickPulse;
 
-	// Timer
+	//// Timer
 	//void TimerLoop();
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget), Category = "Timer_Variables")
 	float TimerDelayTime = 1.f;

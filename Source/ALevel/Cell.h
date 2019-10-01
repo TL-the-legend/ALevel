@@ -3,8 +3,16 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "UObject/Class.h"
 #include "GameFramework/Actor.h"
 #include "Cell.generated.h"
+
+UENUM()
+enum class ECellState : uint8
+{
+	Alive,
+	Dead,
+};
 
 UCLASS()
 class ALEVEL_API ACell : public AActor
@@ -14,6 +22,13 @@ class ALEVEL_API ACell : public AActor
 public:	
 	// Sets default values for this actor's properties
 	ACell();
+
+	//// State Stuff
+	UFUNCTION()
+	ECellState ReturnState();
+	// initiate state
+	UPROPERTY()
+	ECellState State = ECellState::Dead;
 
 protected:
 	// Called when the game starts or when spawned

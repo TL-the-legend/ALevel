@@ -11,10 +11,16 @@ ACell::ACell()
 
 }
 
+ECellState ACell::ReturnState()
+{
+	return State;
+}
+
 // Called when the game starts or when spawned
 void ACell::BeginPlay()
 {
 	Super::BeginPlay();
+	
 	
 }
 
