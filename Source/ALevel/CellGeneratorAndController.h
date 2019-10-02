@@ -37,11 +37,19 @@ public:
 	//// 2D array using unreal's TArray
 	TArray<FCellRow> CellCollections;
 
-	//// Generating cells
+	//// Generate all the cells that will be in the game
 	void GenerateCells();
 
-	//// Observe cells
-	void ObserveCells();
+	//// Observe and decide if the cell should be alive or dead in the next state
+	void ObserveCells(ACell* ThisCell, uint8 X_Axis, uint8 Y_Axis);
+	ECellState TopLeftCell(uint8 X_Axis, uint8 Y_Axis);
+	ECellState TopCell(uint8 X_Axis, uint8 Y_Axis);
+	ECellState TopRightCell(uint8 X_Axis, uint8 Y_Axis);
+	ECellState LeftCell(uint8 X_Axis, uint8 Y_Axis);
+	ECellState RightCell(uint8 X_Axis, uint8 Y_Axis);
+	ECellState BottomLeftCell(uint8 X_Axis, uint8 Y_Axis);
+	ECellState BottomCell(uint8 X_Axis, uint8 Y_Axis);
+	ECellState BottomRightCell(uint8 X_Axis, uint8 Y_Axis);
 
 protected:
 	// Called when the game starts or when spawned

@@ -55,9 +55,540 @@ void ACellGeneratorAndController::GenerateCells()
 	
 }
 
-void ACellGeneratorAndController::ObserveCells()
-{
 
+void ACellGeneratorAndController::ObserveCells(ACell* ThisCell, uint8 X_Axis, uint8 Y_Axis)
+{
+	//// Initialize living and dead neighbours
+	uint8 LivingNeighbours = 0;
+	uint8 DeadNeighbours = 0;
+
+	//// get the state of the current cell
+	ECellState ThisCellState = ThisCell->ReturnState();
+
+	//// Check neighbours
+	/*
+	OOO
+	OXO
+	OOO
+	*/
+	
+	//// Decide which Neighbour Cells have to be observed
+	if (X_Axis == 0)
+	{
+		if (Y_Axis == height - 1)
+		{
+			//// top left corner
+			// check right
+			if (RightCell(X_Axis, Y_Axis) == ECellState::Alive)
+			{
+				++LivingNeighbours;
+			}
+			else
+			{
+				++DeadNeighbours;
+			}
+			// check bottom right
+			if (BottomRightCell(X_Axis, Y_Axis) == ECellState::Alive)
+			{
+				++LivingNeighbours;
+			}
+			else
+			{
+				++DeadNeighbours;
+			}
+			// check bottom
+			if (BottomCell(X_Axis, Y_Axis) == ECellState::Alive)
+			{
+				++LivingNeighbours;
+			}
+			else
+			{
+				++DeadNeighbours;
+			}
+		}
+		else if (Y_Axis == 0)
+		{
+			//// bottom left corner
+			// check right
+			if (RightCell(X_Axis, Y_Axis) == ECellState::Alive)
+			{
+				++LivingNeighbours;
+			}
+			else
+			{
+				++DeadNeighbours;
+			}
+			// check top right
+			if (TopRightCell(X_Axis, Y_Axis) == ECellState::Alive)
+			{
+				++LivingNeighbours;
+			}
+			else
+			{
+				++DeadNeighbours;
+			}
+			// check top
+			if (TopCell(X_Axis, Y_Axis) == ECellState::Alive)
+			{
+				++LivingNeighbours;
+			}
+			else
+			{
+				++DeadNeighbours;
+			}
+		}
+		else
+		{
+			//// just left border
+			// check right
+			if (RightCell(X_Axis, Y_Axis) == ECellState::Alive)
+			{
+				++LivingNeighbours;
+			}
+			else
+			{
+				++DeadNeighbours;
+			}
+			// check bottom right
+			if (BottomRightCell(X_Axis, Y_Axis) == ECellState::Alive)
+			{
+				++LivingNeighbours;
+			}
+			else
+			{
+				++DeadNeighbours;
+			}
+			// check bottom
+			if (BottomCell(X_Axis, Y_Axis) == ECellState::Alive)
+			{
+				++LivingNeighbours;
+			}
+			else
+			{
+				++DeadNeighbours;
+			}
+			// check top right
+			if (TopRightCell(X_Axis, Y_Axis) == ECellState::Alive)
+			{
+				++LivingNeighbours;
+			}
+			else
+			{
+				++DeadNeighbours;
+			}
+			// check top
+			if (TopCell(X_Axis, Y_Axis) == ECellState::Alive)
+			{
+				++LivingNeighbours;
+			}
+			else
+			{
+				++DeadNeighbours;
+			}
+		}
+	}
+	else if (X_Axis == width - 1)
+	{
+		if (Y_Axis == height - 1)
+		{
+			//// top right corner
+			// check bottom left
+			if (BottomLeftCell(X_Axis, Y_Axis) == ECellState::Alive)
+			{
+				++LivingNeighbours;
+			}
+			else
+			{
+				++DeadNeighbours;
+			}
+			// check left
+			if (LeftCell(X_Axis, Y_Axis) == ECellState::Alive)
+			{
+				++LivingNeighbours;
+			}
+			else
+			{
+				++DeadNeighbours;
+			}
+			// check bottom
+			if (BottomCell(X_Axis, Y_Axis) == ECellState::Alive)
+			{
+				++LivingNeighbours;
+			}
+			else
+			{
+				++DeadNeighbours;
+			}
+		}
+		else if (Y_Axis == 0)
+		{
+			//// bottom right corner
+			// check top left
+			if (TopLeftCell(X_Axis, Y_Axis) == ECellState::Alive)
+			{
+				++LivingNeighbours;
+			}
+			else
+			{
+				++DeadNeighbours;
+			}
+			// check left
+			if (LeftCell(X_Axis, Y_Axis) == ECellState::Alive)
+			{
+				++LivingNeighbours;
+			}
+			else
+			{
+				++DeadNeighbours;
+			}
+			// check bottom
+			if (TopCell(X_Axis, Y_Axis) == ECellState::Alive)
+			{
+				++LivingNeighbours;
+			}
+			else
+			{
+				++DeadNeighbours;
+			}
+		}
+		else
+		{
+			//// just right border
+			// check bottom left
+			if (BottomLeftCell(X_Axis, Y_Axis) == ECellState::Alive)
+			{
+				++LivingNeighbours;
+			}
+			else
+			{
+				++DeadNeighbours;
+			}
+			// check left
+			if (LeftCell(X_Axis, Y_Axis) == ECellState::Alive)
+			{
+				++LivingNeighbours;
+			}
+			else
+			{
+				++DeadNeighbours;
+			}
+			// check bottom
+			if (BottomCell(X_Axis, Y_Axis) == ECellState::Alive)
+			{
+				++LivingNeighbours;
+			}
+			else
+			{
+				++DeadNeighbours;
+			}
+			// check top left
+			if (TopLeftCell(X_Axis, Y_Axis) == ECellState::Alive)
+			{
+				++LivingNeighbours;
+			}
+			else
+			{
+				++DeadNeighbours;
+			}
+			// check top 
+			if (TopCell(X_Axis, Y_Axis) == ECellState::Alive)
+			{
+				++LivingNeighbours;
+			}
+			else
+			{
+				++DeadNeighbours;
+			}
+		}
+	}
+	else if (Y_Axis == 0)
+	{
+		//// just bottom border
+		// check right 
+		if (RightCell(X_Axis, Y_Axis) == ECellState::Alive)
+		{
+			++LivingNeighbours;
+		}
+		else
+		{
+			++DeadNeighbours;
+		}
+		// check left
+		if (LeftCell(X_Axis, Y_Axis) == ECellState::Alive)
+		{
+			++LivingNeighbours;
+		}
+		else
+		{
+			++DeadNeighbours;
+		}
+		// check top right
+		if (TopRightCell(X_Axis, Y_Axis) == ECellState::Alive)
+		{
+			++LivingNeighbours;
+		}
+		else
+		{
+			++DeadNeighbours;
+		}
+		// check top left
+		if (TopLeftCell(X_Axis, Y_Axis) == ECellState::Alive)
+		{
+			++LivingNeighbours;
+		}
+		else
+		{
+			++DeadNeighbours;
+		}
+		// check top 
+		if (TopCell(X_Axis, Y_Axis) == ECellState::Alive)
+		{
+			++LivingNeighbours;
+		}
+		else
+		{
+			++DeadNeighbours;
+		}
+	}
+	else if (Y_Axis == height - 1)
+	{
+		//// just top border
+		// check right 
+		if (RightCell(X_Axis, Y_Axis) == ECellState::Alive)
+		{
+			++LivingNeighbours;
+		}
+		else
+		{
+			++DeadNeighbours;
+		}
+		// check left
+		if (LeftCell(X_Axis, Y_Axis) == ECellState::Alive)
+		{
+			++LivingNeighbours;
+		}
+		else
+		{
+			++DeadNeighbours;
+		}
+		// check bottom right
+		if (BottomRightCell(X_Axis, Y_Axis) == ECellState::Alive)
+		{
+			++LivingNeighbours;
+		}
+		else
+		{
+			++DeadNeighbours;
+		}
+		// check bottom left
+		if (BottomLeftCell(X_Axis, Y_Axis) == ECellState::Alive)
+		{
+			++LivingNeighbours;
+		}
+		else
+		{
+			++DeadNeighbours;
+		}
+		// check bottom 
+		if (BottomCell(X_Axis, Y_Axis) == ECellState::Alive)
+		{
+			++LivingNeighbours;
+		}
+		else
+		{
+			++DeadNeighbours;
+		}
+	}
+	else
+	{
+		//// anywhere else on the map (non borders) so check all neighbours
+		// check right 
+		if (RightCell(X_Axis, Y_Axis) == ECellState::Alive)
+		{
+			++LivingNeighbours;
+		}
+		else
+		{
+			++DeadNeighbours;
+		}
+		// check left
+		if (LeftCell(X_Axis, Y_Axis) == ECellState::Alive)
+		{
+			++LivingNeighbours;
+		}
+		else
+		{
+			++DeadNeighbours;
+		}
+		// check top right
+		if (TopRightCell(X_Axis, Y_Axis) == ECellState::Alive)
+		{
+			++LivingNeighbours;
+		}
+		else
+		{
+			++DeadNeighbours;
+		}
+		// check top left
+		if (TopLeftCell(X_Axis, Y_Axis) == ECellState::Alive)
+		{
+			++LivingNeighbours;
+		}
+		else
+		{
+			++DeadNeighbours;
+		}
+		// check top 
+		if (TopCell(X_Axis, Y_Axis) == ECellState::Alive)
+		{
+			++LivingNeighbours;
+		}
+		else
+		{
+			++DeadNeighbours;
+		}
+		// check bottom right
+		if (BottomRightCell(X_Axis, Y_Axis) == ECellState::Alive)
+		{
+			++LivingNeighbours;
+		}
+		else
+		{
+			++DeadNeighbours;
+		}
+		// check bottom left
+		if (BottomLeftCell(X_Axis, Y_Axis) == ECellState::Alive)
+		{
+			++LivingNeighbours;
+		}
+		else
+		{
+			++DeadNeighbours;
+		}
+		// check bottom 
+		if (BottomCell(X_Axis, Y_Axis) == ECellState::Alive)
+		{
+			++LivingNeighbours;
+		}
+		else
+		{
+			++DeadNeighbours;
+		}
+	}
+	
+	
+	if (ThisCellState == ECellState::Alive) // If the cell is currently alive
+	{
+
+	}
+	else // If the cell is dead
+	{
+
+	}
+}
+
+ECellState ACellGeneratorAndController::TopLeftCell(uint8 X_Axis, uint8 Y_Axis)
+{
+	//// return the state of the *function name* neighbour's state
+	if (CellCollections[X_Axis - 1].CellAdrs[Y_Axis + 1]->ReturnState() == ECellState::Alive)
+	{
+		return ECellState::Alive;
+	}
+	else
+	{
+		return ECellState::Dead;
+	}
+}
+
+ECellState ACellGeneratorAndController::TopCell(uint8 X_Axis, uint8 Y_Axis)
+{
+	//// return the state of the *function name* neighbour's state
+	if (CellCollections[X_Axis].CellAdrs[Y_Axis + 1]->ReturnState() == ECellState::Alive)
+	{
+		return ECellState::Alive;
+	}
+	else
+	{
+		return ECellState::Dead;
+	}
+}
+
+ECellState ACellGeneratorAndController::TopRightCell(uint8 X_Axis, uint8 Y_Axis)
+{
+	//// return the state of the *function name* neighbour's state
+	if (CellCollections[X_Axis + 1].CellAdrs[Y_Axis + 1]->ReturnState() == ECellState::Alive)
+	{
+		return ECellState::Alive;
+	}
+	else
+	{
+		return ECellState::Dead;
+	}
+}
+
+ECellState ACellGeneratorAndController::LeftCell(uint8 X_Axis, uint8 Y_Axis)
+{
+	//// return the state of the *function name* neighbour's state
+	if (CellCollections[X_Axis - 1].CellAdrs[Y_Axis]->ReturnState() == ECellState::Alive)
+	{
+		return ECellState::Alive;
+	}
+	else
+	{
+		return ECellState::Dead;
+	}
+}
+
+ECellState ACellGeneratorAndController::RightCell(uint8 X_Axis, uint8 Y_Axis)
+{
+	//// return the state of the *function name* neighbour's state
+	if (CellCollections[X_Axis + 1].CellAdrs[Y_Axis]->ReturnState() == ECellState::Alive)
+	{
+		return ECellState::Alive;
+	}
+	else
+	{
+		return ECellState::Dead;
+	}
+}
+
+ECellState ACellGeneratorAndController::BottomLeftCell(uint8 X_Axis, uint8 Y_Axis)
+{
+	//// return the state of the *function name* neighbour's state
+	if (CellCollections[X_Axis - 1].CellAdrs[Y_Axis - 1]->ReturnState() == ECellState::Alive)
+	{
+		return ECellState::Alive;
+	}
+	else
+	{
+		return ECellState::Dead;
+	}
+}
+
+ECellState ACellGeneratorAndController::BottomCell(uint8 X_Axis, uint8 Y_Axis)
+{
+	//// return the state of the *function name* neighbour's state
+	if (CellCollections[X_Axis].CellAdrs[Y_Axis - 1]->ReturnState() == ECellState::Alive)
+	{
+		return ECellState::Alive;
+	}
+	else
+	{
+		return ECellState::Dead;
+	}
+}
+
+ECellState ACellGeneratorAndController::BottomRightCell(uint8 X_Axis, uint8 Y_Axis)
+{
+	//// return the state of the *function name* neighbour's state
+	if (CellCollections[X_Axis + 1].CellAdrs[Y_Axis - 1]->ReturnState() == ECellState::Alive)
+	{
+		return ECellState::Alive;
+	}
+	else
+	{
+		return ECellState::Dead;
+	}
 }
 
 // Called when the game starts or when spawned
