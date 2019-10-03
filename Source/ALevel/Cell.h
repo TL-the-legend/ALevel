@@ -29,7 +29,10 @@ public:
 	// initiate state
 	UPROPERTY()
 	ECellState State = ECellState::Dead;
-
+	// load next state
+	ECellState NextNewState = ECellState::Dead;
+	UPROPERTY()
+	void LoadNextState(ECellState NextState);
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

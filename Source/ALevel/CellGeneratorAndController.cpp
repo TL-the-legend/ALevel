@@ -72,7 +72,7 @@ void ACellGeneratorAndController::ObserveCells(ACell* ThisCell, uint8 X_Axis, ui
 	OOO
 	*/
 	
-	//// Decide which Neighbour Cells have to be observed
+	//// Decide which Neighbour Cells have to be observed and update the total dead or alive neighbours
 	if (X_Axis == 0)
 	{
 		if (Y_Axis == height - 1)
@@ -477,13 +477,28 @@ void ACellGeneratorAndController::ObserveCells(ACell* ThisCell, uint8 X_Axis, ui
 	}
 	
 	
+	//// Load the next state of the cell
 	if (ThisCellState == ECellState::Alive) // If the cell is currently alive
 	{
-
+		if (LivingNeighbours < 2) // Any live cell with fewer than two live neighbours dies, as if by underpopulation.
+		{
+			ThisCell->LoadNextState(ECellState::Dead);
+		}
+		else if (LivingNeighbours == 2 || LivingNeighbours == 3) //Any live cell with two or three live neighbours lives on to the next generation.
+		{
+			ThisCell->LoadNextState(ECellState::Alive);
+		}
+		else //Any live cell with more than three live neighbours dies, as if by overpopulation.
+		{
+			ThisCell->LoadNextState(ECellState::Dead);
+		}
 	}
 	else // If the cell is dead
 	{
-
+		if (LivingNeighbours == 3) // Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
+		{
+			ThisCell->LoadNextState(ECellState::Alive);
+		}
 	}
 }
 

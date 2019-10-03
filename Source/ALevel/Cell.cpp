@@ -16,6 +16,11 @@ ECellState ACell::ReturnState()
 	return State;
 }
 
+void ACell::LoadNextState(ECellState NextState)
+{
+	NextNewState = NextState;
+}
+
 // Called when the game starts or when spawned
 void ACell::BeginPlay()
 {
