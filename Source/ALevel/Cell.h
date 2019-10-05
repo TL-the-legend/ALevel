@@ -31,7 +31,7 @@ public:
 	ECellState State = ECellState::Dead;
 	// load next state
 	ECellState NextNewState = ECellState::Dead;
-	UPROPERTY()
+	UFUNCTION()
 	void LoadNextState(ECellState NextState);
 protected:
 	// Called when the game starts or when spawned
