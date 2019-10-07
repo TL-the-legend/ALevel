@@ -6,7 +6,9 @@
 #include "GameFramework/Actor.h"
 #include "Cell.h"
 #include "Engine/World.h"
+#include "Components/InstancedStaticMeshComponent.h"
 #include "UObject/Class.h"
+#include "UObject/ConstructorHelpers.h"
 #include "CellGeneratorAndController.generated.h"
 
 //// 2D array using unreal's TArray
@@ -33,6 +35,8 @@ public:
 	uint8 width = 0;
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<ACell> ClassToSpawn;
+	UPROPERTY(EditAnywhere)
+	UStaticMesh* MeshAsset;
 
 	//// 2D array using unreal's TArray
 	TArray<FCellRow> CellCollections;
