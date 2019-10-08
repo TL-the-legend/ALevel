@@ -25,18 +25,23 @@ class ALEVEL_API ACellGeneratorAndController : public AActor
 	GENERATED_BODY()
 	
 public:	
+
 	// Sets default values for this actor's properties
 	ACellGeneratorAndController();
 
 	//// Cells info
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Category = "Dimentions")
 	uint8 height = 0;
-	UPROPERTY(EditAnywhere)
+
+	UPROPERTY(EditAnywhere, Category = "Dimentions")
 	uint8 width = 0;
-	UPROPERTY(EditAnywhere)
+
+	UPROPERTY(EditAnywhere, Category = "Class To Spawn")
 	TSubclassOf<ACell> ClassToSpawn;
-	UPROPERTY(EditAnywhere)
+
+	UPROPERTY(EditAnywhere, Category = "Meshes")
 	UStaticMesh* MeshAsset;
+
 
 	//// 2D array using unreal's TArray
 	TArray<FCellRow> CellCollections;
@@ -46,13 +51,21 @@ public:
 
 	//// Observe and decide if the cell should be alive or dead in the next state
 	void ObserveCells(ACell* ThisCell, uint8 X_Axis, uint8 Y_Axis);
+
 	ECellState TopLeftCell(uint8 X_Axis, uint8 Y_Axis);
+
 	ECellState TopCell(uint8 X_Axis, uint8 Y_Axis);
+
 	ECellState TopRightCell(uint8 X_Axis, uint8 Y_Axis);
+
 	ECellState LeftCell(uint8 X_Axis, uint8 Y_Axis);
+
 	ECellState RightCell(uint8 X_Axis, uint8 Y_Axis);
+
 	ECellState BottomLeftCell(uint8 X_Axis, uint8 Y_Axis);
+
 	ECellState BottomCell(uint8 X_Axis, uint8 Y_Axis);
+
 	ECellState BottomRightCell(uint8 X_Axis, uint8 Y_Axis);
 
 protected:

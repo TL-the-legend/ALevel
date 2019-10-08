@@ -39,7 +39,8 @@ void ACellGeneratorAndController::GenerateCells()
 		for (uint8 j = 0; j < width; j++) {	
 			ACell* myNewCell = nullptr;
 			if (World) {
-				
+
+				/////////////////////Normal SpawnActor/////////////////////
 
 				// Spawn actors
 				FActorSpawnParameters SpawnParams;
@@ -55,6 +56,7 @@ void ACellGeneratorAndController::GenerateCells()
 				//static ConstructorHelpers::FObjectFinder<UStaticMesh>MeshAsset(TEXT("StaticMesh'/Game/World/Cube.Cube'"));
 				//static ConstructorHelpers::FObjectFinder<UStaticMesh> StaticMeshOb_torus(TEXT("StaticMesh'/Engine/EditorShapes/Meshes/Shape_Torus.Shape_Torus'"));
 				//UStaticMesh* Asset;// = MeshAsset.Object;
+				/*
 				UInstancedStaticMeshComponent* ISMComp = NewObject<UInstancedStaticMeshComponent>(myNewCell);
 				ISMComp->RegisterComponent();
 				ISMComp->SetStaticMesh(MeshAsset);
@@ -62,6 +64,10 @@ void ACellGeneratorAndController::GenerateCells()
 				myNewCell->AddInstanceComponent(ISMComp);
 				FTransform Transform = myNewCell->GetTransform();
 				ISMComp->AddInstance(Transform);
+				*/
+
+
+				/////////////////////Spawn Instance/////////////////////
 
 			}
 			

@@ -1,2 +1,7 @@
 https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
+https://www.youtube.com
+https://github.com
+https://answers.unrealengine.com
 http://benhumphreys.ca/unreal/
+https://www.unrealengine.com/en-US/
+https://docs.unrealengine.com/en-US/index.html
