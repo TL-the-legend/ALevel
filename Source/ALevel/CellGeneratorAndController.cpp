@@ -525,6 +525,11 @@ void ACellGeneratorAndController::ObserveCells(ACell* ThisCell, uint8 X_Axis, ui
 	}
 }
 
+void ACellGeneratorAndController::UpdateCellState(ACell* myCell)
+{
+	myCell->UpdateState();
+}
+
 ECellState ACellGeneratorAndController::TopLeftCell(uint8 X_Axis, uint8 Y_Axis)
 {
 	//// return the state of the *function name* neighbour's state
@@ -653,5 +658,22 @@ void ACellGeneratorAndController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+
+	if (TimerDelayTime <= DeltaTime)
+	{
+		timer += DeltaTime;
+
+		if (timer >= TimerDelayTime)
+		{
+			float timerLeftOvers = timer - TimerDelayTime;
+			/////do something//////
+			timer = timerLeftOvers;
+		}
+	}
+	else
+	{
+
+	}
+	
 }
 

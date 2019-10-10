@@ -47,10 +47,16 @@ public:
 	TArray<FCellRow> CellCollections;
 
 	//// Generate all the cells that will be in the game
+	UFUNCTION()
 	void GenerateCells();
 
 	//// Observe and decide if the cell should be alive or dead in the next state
+	UFUNCTION()
 	void ObserveCells(ACell* ThisCell, uint8 X_Axis, uint8 Y_Axis);
+
+	//// Update cells state
+	UFUNCTION()
+	void UpdateCellState(ACell* myCell);
 
 	ECellState TopLeftCell(uint8 X_Axis, uint8 Y_Axis);
 
@@ -67,6 +73,12 @@ public:
 	ECellState BottomCell(uint8 X_Axis, uint8 Y_Axis);
 
 	ECellState BottomRightCell(uint8 X_Axis, uint8 Y_Axis);
+
+	//// Timer do something each pulse
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget), Category = "Timer_Variables")
+	float TimerDelayTime = 1.f;
+	UPROPERTY()
+	float timer = 0.f;
 
 protected:
 	// Called when the game starts or when spawned
