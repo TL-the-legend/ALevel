@@ -76,9 +76,14 @@ public:
 
 	//// Timer do something each pulse
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget), Category = "Timer_Variables")
-	float TimerDelayTime = 1.f;
+	float TimerDelayTime = 0.f;
+
 	UPROPERTY()
 	float timer = 0.f;
+	
+	//// Things to do each tick
+	UFUNCTION()
+	void AllCellTick();
 
 protected:
 	// Called when the game starts or when spawned
@@ -89,3 +94,4 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 };
+

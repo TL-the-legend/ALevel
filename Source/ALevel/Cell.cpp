@@ -59,7 +59,7 @@ void ACell::ChangeMaterialDead()
 
 void ACell::SetUpMaterial()
 {
-	MyMesh->SetMaterial(0, DeadMaterial);
+	MyMesh->SetMaterial(0, AliveMaterial);
 }
 
 // Called when the game starts or when spawned

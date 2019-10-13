@@ -32,11 +32,13 @@ void ACellGeneratorAndController::GenerateCells()
 	/**/
 	//// Spawn actors and put their address into a 2D array
 	UWorld* World = GetWorld();
-	for (uint8 i = 0; i < height; i++) {
+	for (uint8 i = 0; i < height; i++)
+	{
 		FCellRow thisRow;
 		CellCollections.Add(thisRow);
 		UE_LOG(LogTemp, Warning, TEXT("heightloop = %u"), i);
-		for (uint8 j = 0; j < width; j++) {	
+		for (uint8 j = 0; j < width; j++) 
+		{	
 			ACell* myNewCell = nullptr;
 			if (World) {
 
@@ -634,6 +636,29 @@ ECellState ACellGeneratorAndController::BottomRightCell(uint8 X_Axis, uint8 Y_Ax
 	}
 }
 
+void ACellGeneratorAndController::AllCellTick()
+{
+	//// First Step
+	// Tell each cell what their next state will be
+	for (uint8 i = 0; i < height; i++) {
+		for (uint8 j = 0; j < width; j++) 
+		{
+			ACell* ThisCell = CellCollections[i].CellAdrs[j];
+			ObserveCells(ThisCell, i, j);
+		}
+	}
+
+	//// Second Step
+	// Tell each cell to update their state
+	for (uint8 i = 0; i < height; i++) {
+		for (uint8 j = 0; j < width; j++)
+		{
+			ACell* ThisCell = CellCollections[i].CellAdrs[j];
+			UpdateCellState(ThisCell);
+		}
+	}
+}
+
 // Called when the game starts or when spawned
 void ACellGeneratorAndController::BeginPlay()
 {
@@ -641,6 +666,7 @@ void ACellGeneratorAndController::BeginPlay()
 
 	GenerateCells();
 	//UEnum State = CellCollections[0].CellAdrs[0]->ReturnState();
+	/*
 	ECellState State = CellCollections[0].CellAdrs[0]->ReturnState();
 	
 	if (State == ECellState::Alive) 
@@ -651,6 +677,7 @@ void ACellGeneratorAndController::BeginPlay()
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Dead"));
 	}
+	*/
 }
 
 // Called every frame
@@ -658,21 +685,25 @@ void ACellGeneratorAndController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-
-	if (TimerDelayTime <= DeltaTime)
+	
+	if (TimerDelayTime >= DeltaTime) //// if the the user-set timer is larger or equal to the frame rate, then this will tick with the user set time between each pulse
 	{
 		timer += DeltaTime;
 
 		if (timer >= TimerDelayTime)
 		{
 			float timerLeftOvers = timer - TimerDelayTime;
-			/////do something//////
+
+			UE_LOG(LogTemp, Warning, TEXT("timer beep Normal TimerDelayTime"));
+			AllCellTick();
+
 			timer = timerLeftOvers;
 		}
 	}
-	else
+	else //// if the user set timer is too fast then it will tick according to the frame speed
 	{
-
+			UE_LOG(LogTemp, Warning, TEXT("timer beep Temp TimerDelayTime"));
+			AllCellTick();
 	}
 	
 }

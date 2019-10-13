@@ -33,10 +33,11 @@ public:
 
 	// initiate state
 	UPROPERTY()
-	ECellState State = ECellState::Dead;
+	ECellState State = ECellState::Alive;
 
 	// load next state
 	ECellState NextNewState = ECellState::Dead;
+
 	UFUNCTION()
 	void LoadNextState(ECellState NextState);
 
