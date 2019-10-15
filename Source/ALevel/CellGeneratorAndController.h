@@ -54,10 +54,6 @@ public:
 	UFUNCTION()
 	void ObserveCells(ACell* ThisCell, uint8 X_Axis, uint8 Y_Axis);
 
-	//// Update cells state
-	UFUNCTION()
-	void UpdateCellState(ACell* myCell);
-
 	ECellState TopLeftCell(uint8 X_Axis, uint8 Y_Axis);
 
 	ECellState TopCell(uint8 X_Axis, uint8 Y_Axis);
@@ -73,6 +69,26 @@ public:
 	ECellState BottomCell(uint8 X_Axis, uint8 Y_Axis);
 
 	ECellState BottomRightCell(uint8 X_Axis, uint8 Y_Axis);
+
+	uint8 CheckTopLeftCell(uint8 LivingNeighbours, uint8 X_Axis, uint8 Y_Axis);
+
+	uint8 CheckTopCell(uint8 LivingNeighbours, uint8 X_Axis, uint8 Y_Axis);
+
+	uint8 CheckTopRightCell(uint8 LivingNeighbours, uint8 X_Axis, uint8 Y_Axis);
+
+	uint8 CheckLeftCell(uint8 LivingNeighbours, uint8 X_Axis, uint8 Y_Axis);
+
+	uint8 CheckRightCell(uint8 LivingNeighbours, uint8 X_Axis, uint8 Y_Axis);
+
+	uint8 CheckBottomLeftCell(uint8 LivingNeighbours, uint8 X_Axis, uint8 Y_Axis);
+
+	uint8 CheckBottomCell(uint8 LivingNeighbours, uint8 X_Axis, uint8 Y_Axis);
+
+	uint8 CheckBottomRightCell(uint8 LivingNeighbours, uint8 X_Axis, uint8 Y_Axis);
+
+	//// Update cells state
+	UFUNCTION()
+	void UpdateCellState(ACell* myCell);
 
 	//// Timer do something each pulse
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget), Category = "Timer_Variables")
