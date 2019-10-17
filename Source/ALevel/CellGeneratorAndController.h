@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include <iostream>
 #include "GameFramework/Actor.h"
 #include "Cell.h"
 #include "Engine/World.h"

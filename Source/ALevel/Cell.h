@@ -36,7 +36,7 @@ public:
 	ECellState State = ECellState::Alive;
 
 	// load next state
-	ECellState NextNewState = ECellState::Dead;
+	ECellState NextNewState = State; // ECellState::Dead;
 
 	UFUNCTION()
 	void LoadNextState(ECellState NextState);
@@ -65,7 +65,7 @@ public:
 	class UMaterialInterface* ChangeMaterial;
 
 	UFUNCTION()
-	void SetUpMaterial();
+	void SetUp();
 
 	UPROPERTY(EditAnywhere, Category = "Meshes")
 	UStaticMesh* MeshAsset;

@@ -102,19 +102,19 @@ void ACellGeneratorAndController::ObserveCells(ACell* ThisCell, uint8 X_Axis, ui
 	//// Decide which Neighbour Cells have to be observed and update the total dead or alive neighbours
 	if (X_Axis == 0)
 	{
-		if (Y_Axis == 0) // Bottom Left of the map
+		if (Y_Axis == 0) // Bottom Left of the map T,TR,R
 		{
 			LivingNeighbours = CheckTopCell(LivingNeighbours, X_Axis, Y_Axis);
 			LivingNeighbours = CheckTopRightCell(LivingNeighbours, X_Axis, Y_Axis);
 			LivingNeighbours = CheckRightCell(LivingNeighbours, X_Axis, Y_Axis);
 		}
-		else if (Y_Axis == height - 1) // Top Left of the map
+		else if (Y_Axis == height - 1) // Top Left of the map R,BR,B
 		{
-			LivingNeighbours = CheckTopRightCell(LivingNeighbours, X_Axis, Y_Axis);
+			LivingNeighbours = CheckRightCell(LivingNeighbours, X_Axis, Y_Axis);
 			LivingNeighbours = CheckBottomRightCell(LivingNeighbours, X_Axis, Y_Axis);
 			LivingNeighbours = CheckBottomCell(LivingNeighbours, X_Axis, Y_Axis);
 		}
-		else // Rest of the Left side of the map
+		else // Rest of the Left side of the map T,TR,R,BR,B
 		{
 			LivingNeighbours = CheckTopCell(LivingNeighbours, X_Axis, Y_Axis);
 			LivingNeighbours = CheckTopRightCell(LivingNeighbours, X_Axis, Y_Axis);
@@ -125,20 +125,20 @@ void ACellGeneratorAndController::ObserveCells(ACell* ThisCell, uint8 X_Axis, ui
 	}
 	else if (X_Axis == width - 1) 
 	{
-		if (Y_Axis == 0) // Bottom Right of the map
+		if (Y_Axis == 0) // Bottom Right of the map L,TL,T
 		{
 			LivingNeighbours = CheckLeftCell(LivingNeighbours, X_Axis, Y_Axis);
 			LivingNeighbours = CheckTopLeftCell(LivingNeighbours, X_Axis, Y_Axis);
 			LivingNeighbours = CheckTopCell(LivingNeighbours, X_Axis, Y_Axis);
 
 		}
-		else if (Y_Axis == height - 1) // Top Right of the map
+		else if (Y_Axis == height - 1) // Top Right of the map L,BL,B
 		{
 			LivingNeighbours = CheckLeftCell(LivingNeighbours, X_Axis, Y_Axis);
 			LivingNeighbours = CheckBottomLeftCell(LivingNeighbours, X_Axis, Y_Axis);
 			LivingNeighbours = CheckBottomCell(LivingNeighbours, X_Axis, Y_Axis);
 		}
-		else // Rest of the Right side of the map
+		else // Rest of the Right side of the map T,TL,L,BL,B
 		{
 			LivingNeighbours = CheckTopCell(LivingNeighbours, X_Axis, Y_Axis);
 			LivingNeighbours = CheckTopLeftCell(LivingNeighbours, X_Axis, Y_Axis);
@@ -148,7 +148,7 @@ void ACellGeneratorAndController::ObserveCells(ACell* ThisCell, uint8 X_Axis, ui
 
 		}
 	}
-	else if (Y_Axis == 0) // Rest of the Bottom side of the map
+	else if (Y_Axis == 0) // Rest of the Bottom side of the map L,TL,T,TR,R
 	{
 		LivingNeighbours = CheckLeftCell(LivingNeighbours, X_Axis, Y_Axis);
 		LivingNeighbours = CheckTopLeftCell(LivingNeighbours, X_Axis, Y_Axis);
@@ -156,7 +156,7 @@ void ACellGeneratorAndController::ObserveCells(ACell* ThisCell, uint8 X_Axis, ui
 		LivingNeighbours = CheckTopRightCell(LivingNeighbours, X_Axis, Y_Axis);
 		LivingNeighbours = CheckRightCell(LivingNeighbours, X_Axis, Y_Axis);
 	}
-	else if (Y_Axis == height - 1) // Rest of the Top side of the map
+	else if (Y_Axis == height - 1) // Rest of the Top side of the map L,BL,B,BR,R
 	{
 		LivingNeighbours = CheckLeftCell(LivingNeighbours, X_Axis, Y_Axis);
 		LivingNeighbours = CheckBottomLeftCell(LivingNeighbours, X_Axis, Y_Axis);
@@ -164,7 +164,7 @@ void ACellGeneratorAndController::ObserveCells(ACell* ThisCell, uint8 X_Axis, ui
 		LivingNeighbours = CheckBottomRightCell(LivingNeighbours, X_Axis, Y_Axis);
 		LivingNeighbours = CheckRightCell(LivingNeighbours, X_Axis, Y_Axis);
 	}
-	else // Rest of the map that is non-edge
+	else // Rest of the map that is non-edge TL,T,TR,L,R,BL,B,BR
 	{
 		LivingNeighbours = CheckTopLeftCell(LivingNeighbours, X_Axis, Y_Axis);
 		LivingNeighbours = CheckTopCell(LivingNeighbours, X_Axis, Y_Axis);
@@ -615,6 +615,7 @@ void ACellGeneratorAndController::UpdateCellState(ACell* myCell)
 ECellState ACellGeneratorAndController::TopLeftCell(uint8 X_Axis, uint8 Y_Axis)
 {
 	//// return the state of the *function name* neighbour's state
+	
 	if (CellCollections[X_Axis - 1].CellAdrs[Y_Axis + 1]->ReturnState() == ECellState::Alive)
 	{
 		return ECellState::Alive;
@@ -623,11 +624,13 @@ ECellState ACellGeneratorAndController::TopLeftCell(uint8 X_Axis, uint8 Y_Axis)
 	{
 		return ECellState::Dead;
 	}
+	
 }
 
 ECellState ACellGeneratorAndController::TopCell(uint8 X_Axis, uint8 Y_Axis)
 {
 	//// return the state of the *function name* neighbour's state
+	
 	if (CellCollections[X_Axis].CellAdrs[Y_Axis + 1]->ReturnState() == ECellState::Alive)
 	{
 		return ECellState::Alive;
@@ -641,6 +644,7 @@ ECellState ACellGeneratorAndController::TopCell(uint8 X_Axis, uint8 Y_Axis)
 ECellState ACellGeneratorAndController::TopRightCell(uint8 X_Axis, uint8 Y_Axis)
 {
 	//// return the state of the *function name* neighbour's state
+	
 	if (CellCollections[X_Axis + 1].CellAdrs[Y_Axis + 1]->ReturnState() == ECellState::Alive)
 	{
 		return ECellState::Alive;
@@ -654,6 +658,7 @@ ECellState ACellGeneratorAndController::TopRightCell(uint8 X_Axis, uint8 Y_Axis)
 ECellState ACellGeneratorAndController::LeftCell(uint8 X_Axis, uint8 Y_Axis)
 {
 	//// return the state of the *function name* neighbour's state
+	
 	if (CellCollections[X_Axis - 1].CellAdrs[Y_Axis]->ReturnState() == ECellState::Alive)
 	{
 		return ECellState::Alive;
@@ -667,6 +672,7 @@ ECellState ACellGeneratorAndController::LeftCell(uint8 X_Axis, uint8 Y_Axis)
 ECellState ACellGeneratorAndController::RightCell(uint8 X_Axis, uint8 Y_Axis)
 {
 	//// return the state of the *function name* neighbour's state
+	
 	if (CellCollections[X_Axis + 1].CellAdrs[Y_Axis]->ReturnState() == ECellState::Alive)
 	{
 		return ECellState::Alive;
@@ -680,6 +686,7 @@ ECellState ACellGeneratorAndController::RightCell(uint8 X_Axis, uint8 Y_Axis)
 ECellState ACellGeneratorAndController::BottomLeftCell(uint8 X_Axis, uint8 Y_Axis)
 {
 	//// return the state of the *function name* neighbour's state
+	
 	if (CellCollections[X_Axis - 1].CellAdrs[Y_Axis - 1]->ReturnState() == ECellState::Alive)
 	{
 		return ECellState::Alive;
@@ -693,6 +700,7 @@ ECellState ACellGeneratorAndController::BottomLeftCell(uint8 X_Axis, uint8 Y_Axi
 ECellState ACellGeneratorAndController::BottomCell(uint8 X_Axis, uint8 Y_Axis)
 {
 	//// return the state of the *function name* neighbour's state
+	
 	if (CellCollections[X_Axis].CellAdrs[Y_Axis - 1]->ReturnState() == ECellState::Alive)
 	{
 		return ECellState::Alive;
@@ -706,6 +714,7 @@ ECellState ACellGeneratorAndController::BottomCell(uint8 X_Axis, uint8 Y_Axis)
 ECellState ACellGeneratorAndController::BottomRightCell(uint8 X_Axis, uint8 Y_Axis)
 {
 	//// return the state of the *function name* neighbour's state
+	
 	if (CellCollections[X_Axis + 1].CellAdrs[Y_Axis - 1]->ReturnState() == ECellState::Alive)
 	{
 		return ECellState::Alive;
@@ -825,19 +834,6 @@ void ACellGeneratorAndController::BeginPlay()
 	Super::BeginPlay();
 
 	GenerateCells();
-	//UEnum State = CellCollections[0].CellAdrs[0]->ReturnState();
-	/*
-	ECellState State = CellCollections[0].CellAdrs[0]->ReturnState();
-	
-	if (State == ECellState::Alive) 
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Alive"));
-	}
-	else 
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Dead"));
-	}
-	*/
 }
 
 // Called every frame

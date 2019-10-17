@@ -57,8 +57,9 @@ void ACell::ChangeMaterialDead()
 	MyMesh->SetMaterial(0, DeadMaterial);
 }
 
-void ACell::SetUpMaterial()
+void ACell::SetUp()
 {
+	ECellState State = ECellState::Alive;
 	MyMesh->SetMaterial(0, AliveMaterial);
 }
 
@@ -66,7 +67,7 @@ void ACell::SetUpMaterial()
 void ACell::BeginPlay()
 {
 	Super::BeginPlay();
-	SetUpMaterial();
+	SetUp();
 }
 
 // Called every frame
