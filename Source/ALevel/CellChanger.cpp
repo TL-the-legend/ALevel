@@ -1,0 +1,106 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+
+
+#include "CellChanger.h"
+
+// Sets default values for this component's properties
+UCellChanger::UCellChanger()
+{
+	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
+	// off to improve performance if you don't need them.
+	PrimaryComponentTick.bCanEverTick = true;
+
+	// ...
+}
+
+void UCellChanger::loading_InputComponent()
+{
+	InputComponent = GetOwner()->FindComponentByClass<UInputComponent>();
+	if (InputComponent) {
+		UE_LOG(LogTemp, Error, TEXT("InputComponent found"));
+		//bind keys
+		InputComponent->BindAction("ChangeCellsState", IE_Pressed, this, &UCellChanger::ChangeState);
+		InputComponent->BindAction("ChangeCellsState", IE_Released, this, &UCellChanger::ChangeStateBool);
+	}
+	else {
+		UE_LOG(LogTemp, Error, TEXT("%s cant find InputHandle"), *GetOwner()->GetName());
+	}
+}
+
+void UCellChanger::LineTraceAndChangeState()
+{
+	//// To prevent changing state each frame over and over again when the use is still holding the key
+	if (AllowChangeState == true) 
+	{
+		//// Get the player's view point
+		FVector PlayerViewPointLocation;
+		FRotator PlayerViewPointRotation;
+		// Get the data into PlayerViewPointLocation and PlayerViewPointRotation
+		GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(PlayerViewPointLocation, PlayerViewPointRotation);
+
+		//// Calculate end of the line trace
+		FVector LineTraceEnd = PlayerViewPointLocation + PlayerViewPointRotation.Vector() * DistanceReach;
+
+		//// Draw Debugline (just for debuging)
+		//DrawDebugLine(GetWorld(), PlayerViewPointLocation, LineTraceEnd, FColor(255, 0, 0), false, 0.f, 0.f, 5.f);
+
+		//// Ray Cast
+		FHitResult HitCell;
+		FCollisionQueryParams CollisionParams;
+		// Line trace and see what object did it hit
+		if (GetWorld()->LineTraceSingleByChannel(HitCell, PlayerViewPointLocation, LineTraceEnd, ECC_Visibility, CollisionParams))
+		{
+			// if something got hit then do something
+			AActor* HitActor = HitCell.GetActor();
+			if (ensureMsgf(HitActor, TEXT("HitActor nullptr")))
+			{
+				// if the something is one of the cells then do something
+				if (ACell* TheCell = Cast<ACell>(HitCell.Actor))
+				{
+					UE_LOG(LogTemp, Warning, TEXT("Hitting: %s"), *TheCell->GetName());
+					// call FlipState to flip state
+					TheCell->FlipState();
+					// disable the change state function until the user release the key
+					AllowChangeState = false;
+				}
+			}
+		}
+	}
+
+	
+}
+
+void UCellChanger::ChangeState()
+{
+	
+}
+
+void UCellChanger::ChangeStateBool()
+{
+	AllowChangeState = true;
+}
+
+
+// Called when the game starts
+void UCellChanger::BeginPlay()
+{
+	Super::BeginPlay();
+
+	// ...
+	//// Call function to check if the input component is loaded
+	loading_InputComponent();
+}
+
+
+// Called every frame
+void UCellChanger::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+{
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+	// ...
+
+	//// Line Trace
+	LineTraceAndChangeState();
+
+}
+

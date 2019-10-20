@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include <iostream>
 #include "GameFramework/Actor.h"
 #include "Cell.h"
 #include "Engine/World.h"
@@ -101,6 +100,9 @@ public:
 	//// Things to do each tick
 	UFUNCTION()
 	void AllCellTick();
+
+	//// Return the cell address
+	//ACell* ReturnCellArress(AActor* CellAActorAdress);
 
 protected:
 	// Called when the game starts or when spawned

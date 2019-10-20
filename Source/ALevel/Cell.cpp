@@ -47,6 +47,20 @@ void ACell::UpdateState()
 	}
 }
 
+void ACell::FlipState()
+{
+	if (NextNewState == ECellState::Alive) // if the state is Alive, then change it to Dead
+	{
+		State = ECellState::Dead;
+		ChangeMaterialDead();
+	}
+	else // if the state is Dead, then change it to Alive
+	{
+		State = ECellState::Alive;
+		ChangeMaterialAlive();
+	}
+}
+
 void ACell::ChangeMaterialAlive()
 {
 	MyMesh->SetMaterial(0, AliveMaterial);

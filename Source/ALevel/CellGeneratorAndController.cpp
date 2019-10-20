@@ -827,6 +827,26 @@ void ACellGeneratorAndController::AllCellTick()
 		}
 	}
 }
+//
+//ACell* ACellGeneratorAndController::ReturnCellArress(AActor* CellAActorAdress)
+//{
+//	ACell* TheCell = nullptr;
+//	// Find CellNumber
+//	int16 CellNumber = NULL;
+//	// 
+//
+//	if (CellNumber)
+//	{
+//		// Find row
+//		int8 row = CellNumber / height;
+//		// FInd column
+//		int8 column = CellNumber % width;
+//		// Get the address from the array
+//		TheCell = CellCollections[row].CellAdrs[column];
+//		return TheCell;
+//	}
+//
+//}
 
 // Called when the game starts or when spawned
 void ACellGeneratorAndController::BeginPlay()

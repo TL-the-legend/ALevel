@@ -44,6 +44,9 @@ public:
 	// update state
 	UFUNCTION()
 	void UpdateState();
+	
+	// flip state
+	void FlipState();
 
 	// Change Material
 	UFUNCTION()
