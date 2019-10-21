@@ -15,12 +15,17 @@ UCellChanger::UCellChanger()
 
 void UCellChanger::loading_InputComponent()
 {
+	// Get the Address of the CellGeneratorAndController actor
+	CellGaC = FindCellGeneratorAndController();
+
+	// Codes for binding keys
 	InputComponent = GetOwner()->FindComponentByClass<UInputComponent>();
 	if (InputComponent) {
 		UE_LOG(LogTemp, Error, TEXT("InputComponent found"));
 		//bind keys
 		InputComponent->BindAction("ChangeCellsState", IE_Pressed, this, &UCellChanger::ChangeState);
 		InputComponent->BindAction("ChangeCellsState", IE_Released, this, &UCellChanger::ChangeStateBool);
+		InputComponent->BindAction("ToggleTick", IE_Pressed, this, &UCellChanger::ToggleTickGaC);
 	}
 	else {
 		UE_LOG(LogTemp, Error, TEXT("%s cant find InputHandle"), *GetOwner()->GetName());
@@ -80,6 +85,41 @@ void UCellChanger::ChangeStateBool()
 	AllowChangeState = true;
 }
 
+AActor* UCellChanger::FindCellGeneratorAndController()
+{
+	// Getting the adress of the actor
+	for (TActorIterator<AActor> ActorItr(GetWorld()); ActorItr; ++ActorItr)
+	{
+		// Same as with the Object Iterator, access the subclass instance with the * or -> operators.
+
+		AActor* ActorI = *ActorItr;
+		UE_LOG(LogTemp, Warning, TEXT("Actor: %s"), *ActorI->GetFName().ToString())
+			if (ActorI->GetFName().ToString().Contains(TEXT("CellGeneratorAndController")))
+			{
+				// update CellGaC and stop the loop when the actor is found
+				CellGaC = ActorI;
+				break;
+			}
+	}
+	if (CellGaC) 
+	{
+		return CellGaC;
+	}
+	else
+	{
+		return nullptr;
+	}
+	
+}
+
+
+void UCellChanger::ToggleTickGaC()
+{
+	// Cast from AActor to ACellGeneratorAndController
+	ACellGeneratorAndController* Cell = Cast<ACellGeneratorAndController>(CellGaC);
+	// Call ToggleTick function from ACellGeneratorAndController class
+	Cell->ToggleTick();
+}
 
 // Called when the game starts
 void UCellChanger::BeginPlay()
@@ -99,7 +139,7 @@ void UCellChanger::TickComponent(float DeltaTime, ELevelTick TickType, FActorCom
 
 	// ...
 
-	//// Line Trace
+	//// Line Trace and change state
 	LineTraceAndChangeState();
 
 }

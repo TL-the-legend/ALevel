@@ -54,7 +54,7 @@ void ACell::FlipState()
 		State = ECellState::Dead;
 		ChangeMaterialDead();
 	}
-	else // if the state is Dead, then change it to Alive
+	else // if the state is Dead, then change it to Alive]
 	{
 		State = ECellState::Alive;
 		ChangeMaterialAlive();

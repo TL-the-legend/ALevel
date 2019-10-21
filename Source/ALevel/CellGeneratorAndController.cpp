@@ -827,6 +827,27 @@ void ACellGeneratorAndController::AllCellTick()
 		}
 	}
 }
+void ACellGeneratorAndController::ToggleTick()
+{
+	// switch between true and false
+	if (AllowTick == true)
+	{
+		AllowTick = false;
+	}
+	else 
+	{
+		AllowTick = true;
+	}
+}
+
+//void ACellGeneratorAndController::loading_InputComponent()
+//{
+//	UInputComponent* InputComponent;
+//	InputComponent = ->FindComponentByClass<UInputComponent>();
+//	InputComponent->BindAction("ToggleTick", IE_Pressed, this, &ACellGeneratorAndController::ToggleTick);
+//}
+
+
 //
 //ACell* ACellGeneratorAndController::ReturnCellArress(AActor* CellAActorAdress)
 //{
@@ -854,6 +875,7 @@ void ACellGeneratorAndController::BeginPlay()
 	Super::BeginPlay();
 
 	GenerateCells();
+	//loading_InputComponent();
 }
 
 // Called every frame
@@ -861,26 +883,27 @@ void ACellGeneratorAndController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	
-	if (TimerDelayTime >= DeltaTime) //// if the the user-set timer is larger or equal to the frame rate, then this will tick with the user set time between each pulse
+	if (AllowTick)
 	{
-		timer += DeltaTime;
-
-		if (timer >= TimerDelayTime)
+		if (TimerDelayTime >= DeltaTime) //// if the the user-set timer is larger or equal to the frame rate, then this will tick with the user set time between each pulse
 		{
-			float timerLeftOvers = timer - TimerDelayTime;
+			timer += DeltaTime;
 
-			UE_LOG(LogTemp, Warning, TEXT("timer beep Normal TimerDelayTime"));
-			AllCellTick();
+			if (timer >= TimerDelayTime)
+			{
+				float timerLeftOvers = timer - TimerDelayTime;
 
-			timer = timerLeftOvers;
+				UE_LOG(LogTemp, Warning, TEXT("timer beep Normal TimerDelayTime"));
+				AllCellTick();
+
+				timer = timerLeftOvers;
+			}
 		}
-	}
-	else //// if the user set timer is too fast then it will tick according to the frame speed
-	{
+		else //// if the user set timer is too fast then it will tick according to the frame speed
+		{
 			UE_LOG(LogTemp, Warning, TEXT("timer beep Temp TimerDelayTime"));
 			AllCellTick();
-	}
-	
+		}
+	}	
 }
 

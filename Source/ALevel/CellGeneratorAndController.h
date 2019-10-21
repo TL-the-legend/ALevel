@@ -8,6 +8,9 @@
 #include "Engine/World.h"
 #include "Components/InstancedStaticMeshComponent.h"
 #include "UObject/Class.h"
+#include "Kismet/GameplayStatics.h"
+#include "Components/InputComponent.h"
+#include "EngineUtils.h"
 #include "UObject/ConstructorHelpers.h"
 #include "CellGeneratorAndController.generated.h"
 
@@ -101,8 +104,24 @@ public:
 	UFUNCTION()
 	void AllCellTick();
 
+	//// Tick flipflop
+	UPROPERTY()
+	bool AllowTick = false;
+	UFUNCTION()
+	void ToggleTick();
+
 	//// Return the cell address
 	//ACell* ReturnCellArress(AActor* CellAActorAdress);
+
+	//// Input Component
+	UInputComponent* InputComponent = nullptr;
+	//UFUNCTION()
+	//void loading_InputComponent();
+
+	//// Getting own address
+	UPROPERTY()
+	AActor* OwnAdrs = nullptr;
+
 
 protected:
 	// Called when the game starts or when spawned

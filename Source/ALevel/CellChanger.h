@@ -7,8 +7,10 @@
 #include "DrawDebugHelpers.h"
 #include "Engine/World.h"
 #include "Cell.h"
+#include "EngineUtils.h"
 #include "Components/ActorComponent.h"
 #include "Components/InputComponent.h"
+#include "CellGeneratorAndController.h"
 #include "CellChanger.generated.h"
 
 
@@ -36,6 +38,15 @@ public:
 	UFUNCTION()
 	void ChangeStateBool();
 	bool AllowChangeState = true;
+
+	//// Find address of CellGeneratorAndController
+	UFUNCTION()
+	AActor* FindCellGeneratorAndController();
+	AActor* CellGaC = nullptr;
+
+	//// Toggle Tick
+	UFUNCTION()
+	void ToggleTickGaC();
 
 protected:
 	// Called when the game starts
