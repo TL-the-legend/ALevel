@@ -54,7 +54,7 @@ void ACell::FlipState()
 		State = ECellState::Dead;
 		ChangeMaterialDead();
 	}
-	else // if the state is Dead, then change it to Alive]
+	else // if the state is Dead, then change it to Alive
 	{
 		State = ECellState::Alive;
 		ChangeMaterialAlive();
@@ -73,8 +73,8 @@ void ACell::ChangeMaterialDead()
 
 void ACell::SetUp()
 {
-	ECellState State = ECellState::Alive;
-	MyMesh->SetMaterial(0, AliveMaterial);
+	ECellState State = ECellState::Dead;
+	MyMesh->SetMaterial(0, DeadMaterial);
 }
 
 // Called when the game starts or when spawned

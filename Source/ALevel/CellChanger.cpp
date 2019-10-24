@@ -23,7 +23,7 @@ void UCellChanger::loading_InputComponent()
 	if (InputComponent) {
 		UE_LOG(LogTemp, Error, TEXT("InputComponent found"));
 		//bind keys
-		InputComponent->BindAction("ChangeCellsState", IE_Pressed, this, &UCellChanger::ChangeState);
+		InputComponent->BindAction("ChangeCellsState", IE_Pressed, this, &UCellChanger::LineTraceAndChangeState);
 		InputComponent->BindAction("ChangeCellsState", IE_Released, this, &UCellChanger::ChangeStateBool);
 		InputComponent->BindAction("ToggleTick", IE_Pressed, this, &UCellChanger::ToggleTickGaC);
 	}
@@ -35,44 +35,40 @@ void UCellChanger::loading_InputComponent()
 void UCellChanger::LineTraceAndChangeState()
 {
 	//// To prevent changing state each frame over and over again when the use is still holding the key
-	if (AllowChangeState == true) 
-	{
+
 		//// Get the player's view point
-		FVector PlayerViewPointLocation;
-		FRotator PlayerViewPointRotation;
-		// Get the data into PlayerViewPointLocation and PlayerViewPointRotation
-		GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(PlayerViewPointLocation, PlayerViewPointRotation);
+	FVector PlayerViewPointLocation;
+	FRotator PlayerViewPointRotation;
+	// Get the data into PlayerViewPointLocation and PlayerViewPointRotation
+	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(PlayerViewPointLocation, PlayerViewPointRotation);
 
-		//// Calculate end of the line trace
-		FVector LineTraceEnd = PlayerViewPointLocation + PlayerViewPointRotation.Vector() * DistanceReach;
+	//// Calculate end of the line trace
+	FVector LineTraceEnd = PlayerViewPointLocation + PlayerViewPointRotation.Vector() * DistanceReach;
 
-		//// Draw Debugline (just for debuging)
-		//DrawDebugLine(GetWorld(), PlayerViewPointLocation, LineTraceEnd, FColor(255, 0, 0), false, 0.f, 0.f, 5.f);
+	//// Draw Debugline (just for debuging)
+	//DrawDebugLine(GetWorld(), PlayerViewPointLocation, LineTraceEnd, FColor(255, 0, 0), false, 0.f, 0.f, 5.f);
 
-		//// Ray Cast
-		FHitResult HitCell;
-		FCollisionQueryParams CollisionParams;
-		// Line trace and see what object did it hit
-		if (GetWorld()->LineTraceSingleByChannel(HitCell, PlayerViewPointLocation, LineTraceEnd, ECC_Visibility, CollisionParams))
+	//// Ray Cast
+	FHitResult HitCell;
+	FCollisionQueryParams CollisionParams;
+	// Line trace and see what object did it hit
+	if (GetWorld()->LineTraceSingleByChannel(HitCell, PlayerViewPointLocation, LineTraceEnd, ECC_Visibility, CollisionParams))
+	{
+		// if something got hit then do something
+		AActor* HitActor = HitCell.GetActor();
+		if (ensureMsgf(HitActor, TEXT("HitActor nullptr")))
 		{
-			// if something got hit then do something
-			AActor* HitActor = HitCell.GetActor();
-			if (ensureMsgf(HitActor, TEXT("HitActor nullptr")))
+			// if the something is one of the cells then do something
+			if (ACell* TheCell = Cast<ACell>(HitCell.Actor))
 			{
-				// if the something is one of the cells then do something
-				if (ACell* TheCell = Cast<ACell>(HitCell.Actor))
-				{
-					UE_LOG(LogTemp, Warning, TEXT("Hitting: %s"), *TheCell->GetName());
-					// call FlipState to flip state
-					TheCell->FlipState();
-					// disable the change state function until the user release the key
-					AllowChangeState = false;
-				}
+				UE_LOG(LogTemp, Warning, TEXT("Hitting: %s"), *TheCell->GetName());
+				// call FlipState to flip state
+				TheCell->FlipState();
+				// disable the change state function until the user release the key
+				//AllowChangeState = false;
 			}
 		}
 	}
-
-	
 }
 
 void UCellChanger::ChangeState()
@@ -140,7 +136,7 @@ void UCellChanger::TickComponent(float DeltaTime, ELevelTick TickType, FActorCom
 	// ...
 
 	//// Line Trace and change state
-	LineTraceAndChangeState();
+	//LineTraceAndChangeState();
 
 }
 
