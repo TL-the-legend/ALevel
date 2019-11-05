@@ -874,7 +874,7 @@ void ACellGeneratorAndController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	GenerateCells();
+	//GenerateCells();
 	//loading_InputComponent();
 }
 

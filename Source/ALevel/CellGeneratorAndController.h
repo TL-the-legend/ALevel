@@ -33,10 +33,10 @@ public:
 	ACellGeneratorAndController();
 
 	//// Cells info
-	UPROPERTY(EditAnywhere, Category = "Dimentions")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget), Category = "Dimentions")
 	uint8 height = 0;
 
-	UPROPERTY(EditAnywhere, Category = "Dimentions")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget), Category = "Dimentions")
 	uint8 width = 0;
 
 	UPROPERTY(EditAnywhere, Category = "Class To Spawn")
@@ -50,7 +50,7 @@ public:
 	TArray<FCellRow> CellCollections;
 
 	//// Generate all the cells that will be in the game
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void GenerateCells();
 
 	//// Observe and decide if the cell should be alive or dead in the next state
