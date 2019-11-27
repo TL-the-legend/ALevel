@@ -28,6 +28,9 @@ class ALEVEL_API ACellGeneratorAndController : public AActor
 	GENERATED_BODY()
 	
 public:	
+	// Blueprint calling test function
+	UFUNCTION(BlueprintCallable)
+	void BPtestFunction();
 
 	// Sets default values for this actor's properties
 	ACellGeneratorAndController();

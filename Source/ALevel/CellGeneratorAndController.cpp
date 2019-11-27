@@ -13,6 +13,13 @@ ACellGeneratorAndController::ACellGeneratorAndController()
 
 }
 
+// BP test function
+void ACellGeneratorAndController::BPtestFunction()
+{
+	UE_LOG(LogTemp, Warning, TEXT("BP test function called"));
+}
+
+
 void ACellGeneratorAndController::GenerateCells()
 {
 	/*
