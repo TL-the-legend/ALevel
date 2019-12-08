@@ -48,6 +48,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Meshes")
 	UStaticMesh* MeshAsset;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget), Category = "Game State")
+	bool GameStarted = false;
+
 
 	//// 2D array using unreal's TArray
 	TArray<FCellRow> CellCollections;

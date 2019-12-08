@@ -881,7 +881,8 @@ void ACellGeneratorAndController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	//GenerateCells();
+	GenerateCells();
+	GameStarted = true;
 	//loading_InputComponent();
 }
 
@@ -889,28 +890,30 @@ void ACellGeneratorAndController::BeginPlay()
 void ACellGeneratorAndController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	if (AllowTick)
-	{
-		if (TimerDelayTime >= DeltaTime) //// if the the user-set timer is larger or equal to the frame rate, then this will tick with the user set time between each pulse
+	// Won't do anything if the game hasn't started and the cells aren't generated to prevent array out of range error when pressing toggletick before everything is done
+	if (GameStarted) {
+		if (AllowTick)
 		{
-			timer += DeltaTime;
-
-			if (timer >= TimerDelayTime)
+			if (TimerDelayTime >= DeltaTime) //// if the the user-set timer is larger or equal to the frame rate, then this will tick with the user set time between each pulse
 			{
-				float timerLeftOvers = timer - TimerDelayTime;
+				timer += DeltaTime;
 
-				UE_LOG(LogTemp, Warning, TEXT("timer beep Normal TimerDelayTime"));
+				if (timer >= TimerDelayTime)
+				{
+					float timerLeftOvers = timer - TimerDelayTime;
+
+					UE_LOG(LogTemp, Warning, TEXT("timer beep Normal TimerDelayTime"));
+					AllCellTick();
+
+					timer = timerLeftOvers;
+				}
+			}
+			else //// if the user set timer is too fast then it will tick according to the frame speed
+			{
+				UE_LOG(LogTemp, Warning, TEXT("timer beep Temp TimerDelayTime"));
 				AllCellTick();
-
-				timer = timerLeftOvers;
 			}
 		}
-		else //// if the user set timer is too fast then it will tick according to the frame speed
-		{
-			UE_LOG(LogTemp, Warning, TEXT("timer beep Temp TimerDelayTime"));
-			AllCellTick();
-		}
-	}	
+	}
 }
 
