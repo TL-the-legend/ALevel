@@ -29,8 +29,11 @@ public:
 
 	//// Input Component
 	UInputComponent* InputComponent = nullptr;
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void loading_InputComponent();
+
+	UPROPERTY()
+	bool InputComponentLoaded = false;
 
 	//// Change state
 	UFUNCTION()

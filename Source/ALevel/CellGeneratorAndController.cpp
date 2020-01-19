@@ -20,7 +20,7 @@ void ACellGeneratorAndController::BPtestFunction()
 }
 
 
-void ACellGeneratorAndController::GenerateCells()
+void ACellGeneratorAndController::GenerateCells(uint8 PassedInHeight, uint8 PassedInWidth)
 {
 	/*
 	UWorld* World = GetWorld();
@@ -37,6 +37,9 @@ void ACellGeneratorAndController::GenerateCells()
 	}
 	*/
 	/**/
+	height = PassedInHeight;
+	width = PassedInWidth;
+
 	//// Spawn actors and put their address into a 2D array
 	// i is in CellCollection therefore i = height = X_Axis
 	// j is in CellAdrs therefore j = width = Y_Axis
@@ -86,9 +89,17 @@ void ACellGeneratorAndController::GenerateCells()
 		}
 	}
 	//*/
-	
+	CellGenerated = true;
+	GameStarted = true;
+	UE_LOG(LogTemp, Warning, TEXT("height = %u"), height);
+	UE_LOG(LogTemp, Warning, TEXT("width = %u"), width);
 }
 
+
+bool ACellGeneratorAndController::ReturnCellGenerated()
+{
+	return CellGenerated;
+}
 
 void ACellGeneratorAndController::ObserveCells(ACell* ThisCell, uint8 X_Axis, uint8 Y_Axis)
 {
@@ -110,24 +121,24 @@ void ACellGeneratorAndController::ObserveCells(ACell* ThisCell, uint8 X_Axis, ui
 	if (X_Axis == 0)
 	{
 		if (Y_Axis == 0) // Bottom Left of the map T,TR,R
-		{
+		{			
 			LivingNeighbours = CheckTopCell(LivingNeighbours, X_Axis, Y_Axis);
 			LivingNeighbours = CheckTopRightCell(LivingNeighbours, X_Axis, Y_Axis);
-			LivingNeighbours = CheckRightCell(LivingNeighbours, X_Axis, Y_Axis);
+			LivingNeighbours = CheckRightCell(LivingNeighbours, X_Axis, Y_Axis);			
 		}
 		else if (Y_Axis == height - 1) // Top Left of the map R,BR,B
-		{
+		{			
 			LivingNeighbours = CheckRightCell(LivingNeighbours, X_Axis, Y_Axis);
 			LivingNeighbours = CheckBottomRightCell(LivingNeighbours, X_Axis, Y_Axis);
 			LivingNeighbours = CheckBottomCell(LivingNeighbours, X_Axis, Y_Axis);
 		}
 		else // Rest of the Left side of the map T,TR,R,BR,B
-		{
+		{			
 			LivingNeighbours = CheckTopCell(LivingNeighbours, X_Axis, Y_Axis);
 			LivingNeighbours = CheckTopRightCell(LivingNeighbours, X_Axis, Y_Axis);
 			LivingNeighbours = CheckRightCell(LivingNeighbours, X_Axis, Y_Axis);
 			LivingNeighbours = CheckBottomRightCell(LivingNeighbours, X_Axis, Y_Axis);
-			LivingNeighbours = CheckBottomCell(LivingNeighbours, X_Axis, Y_Axis);
+			LivingNeighbours = CheckBottomCell(LivingNeighbours, X_Axis, Y_Axis);			
 		}
 	}
 	else if (X_Axis == width - 1) 
@@ -137,42 +148,40 @@ void ACellGeneratorAndController::ObserveCells(ACell* ThisCell, uint8 X_Axis, ui
 			LivingNeighbours = CheckLeftCell(LivingNeighbours, X_Axis, Y_Axis);
 			LivingNeighbours = CheckTopLeftCell(LivingNeighbours, X_Axis, Y_Axis);
 			LivingNeighbours = CheckTopCell(LivingNeighbours, X_Axis, Y_Axis);
-
 		}
 		else if (Y_Axis == height - 1) // Top Right of the map L,BL,B
-		{
+		{			
 			LivingNeighbours = CheckLeftCell(LivingNeighbours, X_Axis, Y_Axis);
 			LivingNeighbours = CheckBottomLeftCell(LivingNeighbours, X_Axis, Y_Axis);
 			LivingNeighbours = CheckBottomCell(LivingNeighbours, X_Axis, Y_Axis);
 		}
 		else // Rest of the Right side of the map T,TL,L,BL,B
 		{
-			LivingNeighbours = CheckTopCell(LivingNeighbours, X_Axis, Y_Axis);
+						LivingNeighbours = CheckTopCell(LivingNeighbours, X_Axis, Y_Axis);
 			LivingNeighbours = CheckTopLeftCell(LivingNeighbours, X_Axis, Y_Axis);
 			LivingNeighbours = CheckLeftCell(LivingNeighbours, X_Axis, Y_Axis);
 			LivingNeighbours = CheckBottomLeftCell(LivingNeighbours, X_Axis, Y_Axis);
-			LivingNeighbours = CheckBottomCell(LivingNeighbours, X_Axis, Y_Axis);
-
+			LivingNeighbours = CheckBottomCell(LivingNeighbours, X_Axis, Y_Axis);			
 		}
 	}
 	else if (Y_Axis == 0) // Rest of the Bottom side of the map L,TL,T,TR,R
-	{
+	{		
 		LivingNeighbours = CheckLeftCell(LivingNeighbours, X_Axis, Y_Axis);
 		LivingNeighbours = CheckTopLeftCell(LivingNeighbours, X_Axis, Y_Axis);
 		LivingNeighbours = CheckTopCell(LivingNeighbours, X_Axis, Y_Axis);
 		LivingNeighbours = CheckTopRightCell(LivingNeighbours, X_Axis, Y_Axis);
-		LivingNeighbours = CheckRightCell(LivingNeighbours, X_Axis, Y_Axis);
+		LivingNeighbours = CheckRightCell(LivingNeighbours, X_Axis, Y_Axis);		
 	}
 	else if (Y_Axis == height - 1) // Rest of the Top side of the map L,BL,B,BR,R
-	{
+	{		
 		LivingNeighbours = CheckLeftCell(LivingNeighbours, X_Axis, Y_Axis);
 		LivingNeighbours = CheckBottomLeftCell(LivingNeighbours, X_Axis, Y_Axis);
 		LivingNeighbours = CheckBottomCell(LivingNeighbours, X_Axis, Y_Axis);
 		LivingNeighbours = CheckBottomRightCell(LivingNeighbours, X_Axis, Y_Axis);
-		LivingNeighbours = CheckRightCell(LivingNeighbours, X_Axis, Y_Axis);
+		LivingNeighbours = CheckRightCell(LivingNeighbours, X_Axis, Y_Axis);		
 	}
 	else // Rest of the map that is non-edge TL,T,TR,L,R,BL,B,BR
-	{
+	{		
 		LivingNeighbours = CheckTopLeftCell(LivingNeighbours, X_Axis, Y_Axis);
 		LivingNeighbours = CheckTopCell(LivingNeighbours, X_Axis, Y_Axis);
 		LivingNeighbours = CheckTopRightCell(LivingNeighbours, X_Axis, Y_Axis);
@@ -180,9 +189,9 @@ void ACellGeneratorAndController::ObserveCells(ACell* ThisCell, uint8 X_Axis, ui
 		LivingNeighbours = CheckRightCell(LivingNeighbours, X_Axis, Y_Axis);
 		LivingNeighbours = CheckBottomLeftCell(LivingNeighbours, X_Axis, Y_Axis);
 		LivingNeighbours = CheckBottomCell(LivingNeighbours, X_Axis, Y_Axis);
-		LivingNeighbours = CheckBottomRightCell(LivingNeighbours, X_Axis, Y_Axis);
+		LivingNeighbours = CheckBottomRightCell(LivingNeighbours, X_Axis, Y_Axis);		
 	}
-
+	
 	//// Decide which Neighbour Cells have to be observed and update the total dead or alive neighbours
 	/*
 	if (X_Axis == 0)
@@ -619,6 +628,10 @@ void ACellGeneratorAndController::UpdateCellState(ACell* myCell)
 	myCell->UpdateState();
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////BETWEEN HEREvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
+
 ECellState ACellGeneratorAndController::TopLeftCell(uint8 X_Axis, uint8 Y_Axis)
 {
 	//// return the state of the *function name* neighbour's state
@@ -646,6 +659,7 @@ ECellState ACellGeneratorAndController::TopCell(uint8 X_Axis, uint8 Y_Axis)
 	{
 		return ECellState::Dead;
 	}
+	
 }
 
 ECellState ACellGeneratorAndController::TopRightCell(uint8 X_Axis, uint8 Y_Axis)
@@ -660,6 +674,7 @@ ECellState ACellGeneratorAndController::TopRightCell(uint8 X_Axis, uint8 Y_Axis)
 	{
 		return ECellState::Dead;
 	}
+	
 }
 
 ECellState ACellGeneratorAndController::LeftCell(uint8 X_Axis, uint8 Y_Axis)
@@ -674,6 +689,7 @@ ECellState ACellGeneratorAndController::LeftCell(uint8 X_Axis, uint8 Y_Axis)
 	{
 		return ECellState::Dead;
 	}
+	
 }
 
 ECellState ACellGeneratorAndController::RightCell(uint8 X_Axis, uint8 Y_Axis)
@@ -688,6 +704,7 @@ ECellState ACellGeneratorAndController::RightCell(uint8 X_Axis, uint8 Y_Axis)
 	{
 		return ECellState::Dead;
 	}
+	
 }
 
 ECellState ACellGeneratorAndController::BottomLeftCell(uint8 X_Axis, uint8 Y_Axis)
@@ -702,6 +719,7 @@ ECellState ACellGeneratorAndController::BottomLeftCell(uint8 X_Axis, uint8 Y_Axi
 	{
 		return ECellState::Dead;
 	}
+	
 }
 
 ECellState ACellGeneratorAndController::BottomCell(uint8 X_Axis, uint8 Y_Axis)
@@ -716,6 +734,7 @@ ECellState ACellGeneratorAndController::BottomCell(uint8 X_Axis, uint8 Y_Axis)
 	{
 		return ECellState::Dead;
 	}
+	
 }
 
 ECellState ACellGeneratorAndController::BottomRightCell(uint8 X_Axis, uint8 Y_Axis)
@@ -730,7 +749,11 @@ ECellState ACellGeneratorAndController::BottomRightCell(uint8 X_Axis, uint8 Y_Ax
 	{
 		return ECellState::Dead;
 	}
+	
 }
+///////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////BETWEEN HERE^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
 
 uint8 ACellGeneratorAndController::CheckTopLeftCell(uint8 LivingNeighbours, uint8 X_Axis, uint8 Y_Axis)
 {
@@ -881,8 +904,8 @@ void ACellGeneratorAndController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	GenerateCells();
-	GameStarted = true;
+	//GenerateCells(height, width);
+	
 	//loading_InputComponent();
 }
 

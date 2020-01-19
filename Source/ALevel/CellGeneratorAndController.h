@@ -12,6 +12,8 @@
 #include "Components/InputComponent.h"
 #include "EngineUtils.h"
 #include "UObject/ConstructorHelpers.h"
+#include "GameFramework/Controller.h"
+#include "CellChanger.h"
 #include "CellGeneratorAndController.generated.h"
 
 //// 2D array using unreal's TArray
@@ -57,7 +59,13 @@ public:
 
 	//// Generate all the cells that will be in the game
 	UFUNCTION(BlueprintCallable)
-	void GenerateCells();
+	void GenerateCells(uint8 PassedInHeight, uint8 PassedInWidth);
+
+	UPROPERTY()
+	bool CellGenerated = false;
+
+	UFUNCTION()
+	bool ReturnCellGenerated();
 
 	//// Observe and decide if the cell should be alive or dead in the next state
 	UFUNCTION()

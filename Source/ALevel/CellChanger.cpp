@@ -15,9 +15,7 @@ UCellChanger::UCellChanger()
 
 void UCellChanger::loading_InputComponent()
 {
-	// Get the Address of the CellGeneratorAndController actor
-	CellGaC = FindCellGeneratorAndController();
-
+	
 	// Codes for binding keys
 	InputComponent = GetOwner()->FindComponentByClass<UInputComponent>();
 	if (InputComponent) {
@@ -26,6 +24,7 @@ void UCellChanger::loading_InputComponent()
 		InputComponent->BindAction("ChangeCellsState", IE_Pressed, this, &UCellChanger::LineTraceAndChangeState);
 		InputComponent->BindAction("ChangeCellsState", IE_Released, this, &UCellChanger::ChangeStateBool);
 		InputComponent->BindAction("ToggleTick", IE_Pressed, this, &UCellChanger::ToggleTickGaC);
+		InputComponentLoaded = true;
 	}
 	else {
 		UE_LOG(LogTemp, Error, TEXT("%s cant find InputHandle"), *GetOwner()->GetName());
@@ -124,7 +123,10 @@ void UCellChanger::BeginPlay()
 
 	// ...
 	//// Call function to check if the input component is loaded
-	loading_InputComponent();
+	//loading_InputComponent();
+	// Get the Address of the CellGeneratorAndController actor
+	CellGaC = FindCellGeneratorAndController();
+	//ACellGeneratorAndController* CellGaCRef = Cast<ACellGeneratorAndController>(CellGaC);
 }
 
 
@@ -137,6 +139,15 @@ void UCellChanger::TickComponent(float DeltaTime, ELevelTick TickType, FActorCom
 
 	//// Line Trace and change state
 	//LineTraceAndChangeState();
+	//ACellGeneratorAndController* CellRef = Cast<ACellGeneratorAndController>(CellGaC);
+
+	//// Load InputComponent and bindkeys after all the cells are generated
+	// Cast from AActor to ACellGeneratorAndController
+	ACellGeneratorAndController* CellGaCRef = Cast<ACellGeneratorAndController>(CellGaC);
+	if (CellGaCRef->ReturnCellGenerated() && InputComponentLoaded == false)
+	{
+		loading_InputComponent(); 
+	}
 
 }
 
