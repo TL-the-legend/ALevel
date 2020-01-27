@@ -39,10 +39,10 @@ public:
 
 	//// Cells info
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget), Category = "Dimentions")
-	uint8 height = 0;
+	int32 height = 0;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget), Category = "Dimentions")
-	uint8 width = 0;
+	int32 width = 0;
 
 	UPROPERTY(EditAnywhere, Category = "Class To Spawn")
 	TSubclassOf<ACell> ClassToSpawn;
@@ -59,7 +59,7 @@ public:
 
 	//// Generate all the cells that will be in the game
 	UFUNCTION(BlueprintCallable)
-	void GenerateCells(uint8 PassedInHeight, uint8 PassedInWidth);
+	void GenerateCells(int32 PassedInHeight, int32 PassedInWidth);
 
 	UPROPERTY()
 	bool CellGenerated = false;

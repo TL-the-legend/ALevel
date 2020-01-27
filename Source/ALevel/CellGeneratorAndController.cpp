@@ -20,7 +20,7 @@ void ACellGeneratorAndController::BPtestFunction()
 }
 
 
-void ACellGeneratorAndController::GenerateCells(uint8 PassedInHeight, uint8 PassedInWidth)
+void ACellGeneratorAndController::GenerateCells(int32 PassedInHeight, int32 PassedInWidth)
 {
 	/*
 	UWorld* World = GetWorld();
