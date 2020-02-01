@@ -900,6 +900,26 @@ void ACellGeneratorAndController::ToggleTick()
 //
 //}
 
+void ACellGeneratorAndController::DelayTimeZero()
+{
+	TimerDelayTime = 0.0f;
+}
+
+void ACellGeneratorAndController::SetDefaultDelayTime()
+{
+	TimerDelayTime = 0.5f;
+}
+
+void ACellGeneratorAndController::DefaultTimeTimesTwo()
+{
+	TimerDelayTime = TimerDelayTime * 2;
+}
+
+void ACellGeneratorAndController::DefaultTimeDevideTwo()
+{
+	TimerDelayTime = TimerDelayTime / 2;
+}
+
 // Called when the game starts or when spawned
 void ACellGeneratorAndController::BeginPlay()
 {

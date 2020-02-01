@@ -37,8 +37,6 @@ public:
 
 	//// Change state
 	UFUNCTION()
-	void ChangeState();
-	UFUNCTION()
 	void ChangeStateBool();
 	bool AllowChangeState = true;
 
@@ -51,6 +49,11 @@ public:
 	UFUNCTION()
 	void ToggleTickGaC();
 
+	//// Control Delay Time
+	void DelayTimeZeroGaC();
+	void SetDefaultDelayTimeGaC();
+	void DefaultTimeTimesTwoGaC();
+	void DefaultTimeDevideTwoGaC();
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;

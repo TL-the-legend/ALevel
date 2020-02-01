@@ -136,6 +136,16 @@ public:
 	UPROPERTY()
 	AActor* OwnAdrs = nullptr;
 
+	//// Modify Delay Time
+	UFUNCTION()
+	void DelayTimeZero();
+	UFUNCTION()
+	void SetDefaultDelayTime();
+	UFUNCTION()
+	void DefaultTimeTimesTwo();
+	UFUNCTION()
+	void DefaultTimeDevideTwo();
+
 
 protected:
 	// Called when the game starts or when spawned

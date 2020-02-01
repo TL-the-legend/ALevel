@@ -24,6 +24,11 @@ void UCellChanger::loading_InputComponent()
 		InputComponent->BindAction("ChangeCellsState", IE_Pressed, this, &UCellChanger::LineTraceAndChangeState);
 		InputComponent->BindAction("ChangeCellsState", IE_Released, this, &UCellChanger::ChangeStateBool);
 		InputComponent->BindAction("ToggleTick", IE_Pressed, this, &UCellChanger::ToggleTickGaC);
+		InputComponent->BindAction("DelayTimeZero", IE_Pressed, this, &UCellChanger::DelayTimeZeroGaC);
+		InputComponent->BindAction("SetDefaultDelayTime", IE_Pressed, this, &UCellChanger::SetDefaultDelayTimeGaC);
+		InputComponent->BindAction("DefaultTimeTimesTwo", IE_Pressed, this, &UCellChanger::DefaultTimeTimesTwoGaC);
+		InputComponent->BindAction("DefaultTimeDevideTwo", IE_Pressed, this, &UCellChanger::DefaultTimeDevideTwoGaC);
+
 		InputComponentLoaded = true;
 	}
 	else {
@@ -70,11 +75,6 @@ void UCellChanger::LineTraceAndChangeState()
 	}
 }
 
-void UCellChanger::ChangeState()
-{
-	
-}
-
 void UCellChanger::ChangeStateBool()
 {
 	AllowChangeState = true;
@@ -115,6 +115,40 @@ void UCellChanger::ToggleTickGaC()
 	// Call ToggleTick function from ACellGeneratorAndController class
 	Cell->ToggleTick();
 }
+
+void UCellChanger::DelayTimeZeroGaC()
+{
+	// Cast from AActor to ACellGeneratorAndController
+	ACellGeneratorAndController* Cell = Cast<ACellGeneratorAndController>(CellGaC);
+	// Call DelayTimeZero function from ACellGeneratorAndController class
+	Cell->DelayTimeZero();
+}
+
+void UCellChanger::SetDefaultDelayTimeGaC()
+{
+	// Cast from AActor to ACellGeneratorAndController
+	ACellGeneratorAndController* Cell = Cast<ACellGeneratorAndController>(CellGaC);
+	// Call SetDefaultDelayTime function from ACellGeneratorAndController class
+	Cell->SetDefaultDelayTime();
+}
+
+void UCellChanger::DefaultTimeTimesTwoGaC()
+{
+	// Cast from AActor to ACellGeneratorAndController
+	ACellGeneratorAndController* Cell = Cast<ACellGeneratorAndController>(CellGaC);
+	// Call DefaultTimeTimesTwo function from ACellGeneratorAndController class
+	Cell->DefaultTimeTimesTwo();
+}
+
+void UCellChanger::DefaultTimeDevideTwoGaC()
+{
+	// Cast from AActor to ACellGeneratorAndController
+	ACellGeneratorAndController* Cell = Cast<ACellGeneratorAndController>(CellGaC);
+	// Call DefaultTimeDevideTwo function from ACellGeneratorAndController class
+	Cell->DefaultTimeDevideTwo();
+}
+
+
 
 // Called when the game starts
 void UCellChanger::BeginPlay()
