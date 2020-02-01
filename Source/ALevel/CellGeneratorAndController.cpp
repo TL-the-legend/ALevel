@@ -59,7 +59,7 @@ void ACellGeneratorAndController::GenerateCells(int32 PassedInHeight, int32 Pass
 				// Spawn actors
 				FActorSpawnParameters SpawnParams;
 				SpawnParams.Owner = this;
-				FVector Location = { static_cast<float>(i * 110.0f), static_cast<float>(j * 110.0f), 0.f };
+				FVector Location = { 0.f, static_cast<float>(i * 110.0f), static_cast<float>(j * 110.0f) };
 				//FVector Location = { (float)i * 110.f, (float)j * 110.f, 0.f };
 				FRotator Rotation = FRotator();
 				myNewCell = World->SpawnActor<ACell>(ClassToSpawn, Location, Rotation, SpawnParams);
