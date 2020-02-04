@@ -94,6 +94,7 @@ void ACellGeneratorAndController::GenerateCells(int32 PassedInHeight, int32 Pass
 	GameStarted = true;
 	UE_LOG(LogTemp, Warning, TEXT("height = %u"), height);
 	UE_LOG(LogTemp, Warning, TEXT("width = %u"), width);
+
 }
 
 

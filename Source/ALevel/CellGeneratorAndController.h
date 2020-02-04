@@ -12,6 +12,7 @@
 #include "Components/InputComponent.h"
 #include "EngineUtils.h"
 #include "UObject/ConstructorHelpers.h"
+#include "Misc/FileHelper.h"
 #include "GameFramework/Controller.h"
 #include "CellChanger.h"
 #include "CellGeneratorAndController.generated.h"

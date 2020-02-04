@@ -20,15 +20,23 @@ void UCellChanger::loading_InputComponent()
 	InputComponent = GetOwner()->FindComponentByClass<UInputComponent>();
 	if (InputComponent) {
 		UE_LOG(LogTemp, Error, TEXT("InputComponent found"));
-		//bind keys
-		InputComponent->BindAction("ChangeCellsState", IE_Pressed, this, &UCellChanger::LineTraceAndChangeState);
-		InputComponent->BindAction("ChangeCellsState", IE_Released, this, &UCellChanger::ChangeStateBool);
-		InputComponent->BindAction("ToggleTick", IE_Pressed, this, &UCellChanger::ToggleTickGaC);
-		InputComponent->BindAction("DelayTimeZero", IE_Pressed, this, &UCellChanger::DelayTimeZeroGaC);
-		InputComponent->BindAction("SetDefaultDelayTime", IE_Pressed, this, &UCellChanger::SetDefaultDelayTimeGaC);
-		InputComponent->BindAction("DefaultTimeTimesTwo", IE_Pressed, this, &UCellChanger::DefaultTimeTimesTwoGaC);
-		InputComponent->BindAction("DefaultTimeDevideTwo", IE_Pressed, this, &UCellChanger::DefaultTimeDevideTwoGaC);
+		//// Bind Keys
 
+		//Bind ChangeCellsState
+		InputComponent->BindAction("ChangeCellsState", IE_Pressed, this, &UCellChanger::LineTraceAndChangeState);
+		//Bind ChangeCellsState
+		InputComponent->BindAction("ChangeCellsState", IE_Released, this, &UCellChanger::ChangeStateBool);
+		//Bind ToggleTick
+		InputComponent->BindAction("ToggleTick", IE_Pressed, this, &UCellChanger::ToggleTickGaC);
+		//Bind DelayTimeZero
+		InputComponent->BindAction("DelayTimeZero", IE_Pressed, this, &UCellChanger::DelayTimeZeroGaC);
+		//Bind SetDefaultDelayTime
+		InputComponent->BindAction("SetDefaultDelayTime", IE_Pressed, this, &UCellChanger::SetDefaultDelayTimeGaC);
+		//Bind DefaultTimeTimesTwo
+		InputComponent->BindAction("DefaultTimeTimesTwo", IE_Pressed, this, &UCellChanger::DefaultTimeTimesTwoGaC);
+		//Bind DefaultTimeDevideTwo
+		InputComponent->BindAction("DefaultTimeDevideTwo", IE_Pressed, this, &UCellChanger::DefaultTimeDevideTwoGaC);
+		// Set InputComponentLoaded to true so loading_InputComponent() wont get called again
 		InputComponentLoaded = true;
 	}
 	else {
