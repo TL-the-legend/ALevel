@@ -9,6 +9,8 @@
 #include "Components/InstancedStaticMeshComponent.h"
 #include "UObject/Class.h"
 #include "Kismet/GameplayStatics.h"
+#include "Containers/UnrealString.h"
+#include "Misc/DefaultValueHelper.h"
 #include "Components/InputComponent.h"
 #include "EngineUtils.h"
 #include "UObject/ConstructorHelpers.h"
@@ -53,6 +55,12 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget), Category = "Game State")
 	bool GameStarted = false;
+
+	UFUNCTION(BlueprintCallable)
+	int32 ReturnHeight();
+
+	UFUNCTION(BlueprintCallable)
+	int32 ReturnWidth();
 
 
 	//// 2D array using unreal's TArray
@@ -146,6 +154,17 @@ public:
 	void DefaultTimeTimesTwo();
 	UFUNCTION()
 	void DefaultTimeDevideTwo();
+
+	//// Preset 
+	// The format of the string table goes by "Key:<height>,<width>,<alive_cell_1_x>,<alive_cell_1_y>,<alive_cell_2_x>,<alive_cell_2_y>,<...>,<...>,..."
+	UFUNCTION(BlueprintCallable)
+	void RunPreset(FString OptionData);
+	UPROPERTY()
+	FString PresetChoiceData;
+	UPROPERTY()
+	TArray<FString>PresetSplit;
+	UPROPERTY()
+	TArray<int32>IntPresetSplit;
 
 
 protected:

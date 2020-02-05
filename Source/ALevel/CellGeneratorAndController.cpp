@@ -20,6 +20,16 @@ void ACellGeneratorAndController::BPtestFunction()
 }
 
 
+int32 ACellGeneratorAndController::ReturnHeight()
+{
+	return height;
+}
+
+int32 ACellGeneratorAndController::ReturnWidth()
+{
+	return width;
+}
+
 void ACellGeneratorAndController::GenerateCells(int32 PassedInHeight, int32 PassedInWidth)
 {
 	/*
@@ -60,7 +70,6 @@ void ACellGeneratorAndController::GenerateCells(int32 PassedInHeight, int32 Pass
 				FActorSpawnParameters SpawnParams;
 				SpawnParams.Owner = this;
 				FVector Location = { 0.f, static_cast<float>(i * 110.0f), static_cast<float>(j * 110.0f) };
-				//FVector Location = { (float)i * 110.f, (float)j * 110.f, 0.f };
 				FRotator Rotation = FRotator();
 				myNewCell = World->SpawnActor<ACell>(ClassToSpawn, Location, Rotation, SpawnParams);
 				UE_LOG(LogTemp, Warning, TEXT("Spawned"));
@@ -844,7 +853,9 @@ void ACellGeneratorAndController::AllCellTick()
 	for (uint8 i = 0; i < height; i++) {
 		for (uint8 j = 0; j < width; j++) 
 		{
+			// Get the address of the current cell
 			ACell* ThisCell = CellCollections[i].CellAdrs[j];
+			// Call ObserveCells and pass in the address of the current cell
 			ObserveCells(ThisCell, i, j);
 		}
 	}
@@ -854,7 +865,9 @@ void ACellGeneratorAndController::AllCellTick()
 	for (uint8 i = 0; i < height; i++) {
 		for (uint8 j = 0; j < width; j++)
 		{
+			// Get the address of the current cell
 			ACell* ThisCell = CellCollections[i].CellAdrs[j];
+			// Call UpdateCellState and pass in the address of the current cell
 			UpdateCellState(ThisCell);
 		}
 	}
@@ -903,22 +916,53 @@ void ACellGeneratorAndController::ToggleTick()
 
 void ACellGeneratorAndController::DelayTimeZero()
 {
+	// Set TimerDelayTime to 0.0f
 	TimerDelayTime = 0.0f;
 }
 
 void ACellGeneratorAndController::SetDefaultDelayTime()
 {
+	// Set TimerDelayTime to 0.5f
 	TimerDelayTime = 0.5f;
 }
 
 void ACellGeneratorAndController::DefaultTimeTimesTwo()
 {
+	// Set TimerDelayTime to TimerDelayTime * 2
 	TimerDelayTime = TimerDelayTime * 2;
 }
 
 void ACellGeneratorAndController::DefaultTimeDevideTwo()
 {
+	// Set TimerDelayTime to TimerDelayTime / 2
 	TimerDelayTime = TimerDelayTime / 2;
+}
+
+void ACellGeneratorAndController::RunPreset(FString OptionData)
+{
+	// Get the data from string table in order to preform further operations
+	PresetChoiceData = OptionData;
+	// Split the choice data into an array
+	PresetChoiceData.ParseIntoArray(PresetSplit, TEXT(","), true);
+	// Go through everything in PresetSplit
+	for (int i = 0; i < PresetSplit.Num(); i++)
+	{
+		// Change the data from FString into int32 and put them in the IntPresetSplit array
+		IntPresetSplit.Add(FCString::Atoi(*PresetSplit[i]));
+	}
+	// Set height
+	height = IntPresetSplit[0];
+	// Set width
+	width = IntPresetSplit[1];
+	// Call GenerateCell to generate the cells 
+	GenerateCells(height, width);
+	// Change the states of the cells that has to be changed
+	for (int i = 2; i < IntPresetSplit.Num(); i = i + 2)
+	{
+		CellCollections[IntPresetSplit[i]].CellAdrs[IntPresetSplit[i+1]]->NextNewState = ECellState::Alive;
+		CellCollections[IntPresetSplit[i]].CellAdrs[IntPresetSplit[i + 1]]->UpdateState();
+	}
+
 }
 
 // Called when the game starts or when spawned
@@ -929,6 +973,7 @@ void ACellGeneratorAndController::BeginPlay()
 	//GenerateCells(height, width);
 	
 	//loading_InputComponent();
+	
 }
 
 // Called every frame
