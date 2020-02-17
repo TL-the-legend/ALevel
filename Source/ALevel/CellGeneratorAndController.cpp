@@ -168,7 +168,7 @@ void ACellGeneratorAndController::ObserveCells(ACell* ThisCell, uint8 X_Axis, ui
 		}
 		else // Rest of the Right side of the map T,TL,L,BL,B
 		{
-						LivingNeighbours = CheckTopCell(LivingNeighbours, X_Axis, Y_Axis);
+			LivingNeighbours = CheckTopCell(LivingNeighbours, X_Axis, Y_Axis);
 			LivingNeighbours = CheckTopLeftCell(LivingNeighbours, X_Axis, Y_Axis);
 			LivingNeighbours = CheckLeftCell(LivingNeighbours, X_Axis, Y_Axis);
 			LivingNeighbours = CheckBottomLeftCell(LivingNeighbours, X_Axis, Y_Axis);
@@ -960,7 +960,7 @@ void ACellGeneratorAndController::RunPreset(FString OptionData)
 	for (int i = 2; i < IntPresetSplit.Num(); i = i + 2)
 	{
 		CellCollections[IntPresetSplit[i]].CellAdrs[IntPresetSplit[i+1]]->NextNewState = ECellState::Alive;
-		CellCollections[IntPresetSplit[i]].CellAdrs[IntPresetSplit[i + 1]]->UpdateState();
+		CellCollections[IntPresetSplit[i]].CellAdrs[IntPresetSplit[i+1]]->UpdateState();
 	}
 
 }
