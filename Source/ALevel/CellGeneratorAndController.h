@@ -24,6 +24,8 @@ USTRUCT()
 struct FCellRow
 {
 	GENERATED_BODY()
+
+	UPROPERTY()
 	TArray<ACell*> CellAdrs;
 };
 
@@ -64,6 +66,7 @@ public:
 
 
 	//// 2D array using unreal's TArray
+	UPROPERTY()
 	TArray<FCellRow> CellCollections;
 
 	//// Generate all the cells that will be in the game
